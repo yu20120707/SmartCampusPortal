@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.campus.dashboard.mapper.CampusDashboardMapper">
+
+    <select id="selectDashboardCards" resultType="map">
+        select '学生总数' as title, count(*) as value, '人' as unit from campus_student where status = '0'
+        union all
+        select '教师总数' as title, count(*) as value, '人' as unit from campus_teacher where status = '0'
+        union all
+        select '当前课程' as title, count(distinct s.course_id) as value, '门' as unit
+        from campus_course_section s
+            inner join campus_term term on term.term_id = s.term_id
+        where term.current_flag = 'Y'
+        union all
+        select '考试安排' as title, count(*) as value, '场' as unit from campus_exam
+    </select>
+
+    <select id="selectCourseTypeStats" resultType="map">
+        select course_type as name, count(*) as value
+        from campus_course
+        where status = '0'
+        group by course_type
+        order by value desc
+    </select>
+
+    <select id="selectCollegeStudentStats" resultType="map">
+        select college_name as name, count(*) as value
+        from campus_student
+        where status = '0'
+        group by college_name
+        order by value desc
+    </select>
+
+    <select id="selectScoreTrend" resultType="map">
+        select term.term_name as name, round(avg(score.score), 2) as value
+        from campus_score score
+            inner join campus_course_section s on s.section_id = score.section_id
+            inner join campus_term term on term.term_id = s.term_id
+        group by term.term_id, term.term_name, term.start_date
+        order by term.start_date
+    </select>
+</mapper>

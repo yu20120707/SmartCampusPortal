@@ -20,5 +20,7 @@ Recommended reading by task type:
 | JVM / Spring 性能优化 | `performance.md` |
 | Spring Boot 日志与监控 | `observability.md` |
 | Windows 开发调试指南 | `windows-dev.md` |
+| PRD 落地与 GitHub 复用规划 | `reuse-matrix.md` |
+| V1 交付规划 | `v1-delivery-plan.md` |
 
 If a change crosses several areas, read all relevant files first and keep the task notes explicit.

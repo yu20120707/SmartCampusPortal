@@ -30,18 +30,22 @@ npm install
 npm run dev
 ```
 
-访问 http://localhost:1024 （RuoYi-Vue 默认端口）
+默认访问 http://localhost:80 。如需指定端口，可使用：
+
+```powershell
+npm run dev -- --port 1024
+```
 
 ## 后端默认端口
 
 - 后端：http://localhost:8080
-- 前端代理到后端 URL 在 `ruoyi-ui/.env.development` 中配置
+- 前端代理到后端 URL 在 `ruoyi-ui/vue.config.js` 中配置
 
 ## 数据库
 
 - MySQL 推荐使用本地或 Docker 运行
 - Redis 推荐使用本地 Windows 版或 WSL2
-- RuoYi 默认数据库初始化脚本在 `ruoyi-admin/sql/` 下
+- RuoYi 默认数据库初始化脚本在仓库根目录 `sql/` 下
 
 ## 常见问题
 

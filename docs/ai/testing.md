@@ -2,15 +2,18 @@
 
 ## 目的
 
-本项目的测试策略基于 JUnit 5 + Spring Boot Test。
+本项目的测试策略以 Maven 编译、后端测试、前端构建和手动 API 冒烟为基线。
+当前脚手架尚未默认引入完整的 Spring Boot Test 依赖；新增测试前先确认对应模块的测试依赖。
 
 ## 测试层级
 
 | 层级 | 框架 | 用途 |
 |------|------|------|
-| 单元测试 | JUnit 5 + Mockito | Service 层逻辑测试 |
-| 集成测试 | Spring Boot Test + @SpringBootTest | Controller/Repository 集成 |
-| API 测试 | Postman / Knife4j | 手动接口验证 |
+| 编译检查 | Maven | 确认后端模块可编译 |
+| 单元测试 | JUnit / Mockito（按需添加） | Service 层逻辑测试 |
+| 集成测试 | Spring Boot Test（按需添加） | Controller/Repository 集成 |
+| API 测试 | Postman / Swagger UI | 手动接口验证 |
+| 前端检查 | Vue CLI build | 确认 Vue 页面可生产构建 |
 
 ## 后端测试命令
 
@@ -32,8 +35,10 @@ mvn clean install -DskipTests
 
 ```powershell
 cd ruoyi-ui
-npm run test:unit   # Vue 单元测试（如果有）
+npm run build:prod
 ```
+
+当前 `ruoyi-ui/package.json` 未配置 `test:unit`。如果后续添加 Vue 单元测试，需要先补齐测试依赖和 npm script。
 
 ## 测试注意事项
 

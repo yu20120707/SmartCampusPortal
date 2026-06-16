@@ -15,4 +15,20 @@ if %errorlevel% neq 0 (
     exit /b %errorlevel%
 )
 
+echo ===== Step 3: Build Frontend =====
+pushd ruoyi-ui
+call npm install
+if %errorlevel% neq 0 (
+    popd
+    echo Frontend dependency install FAILED
+    exit /b %errorlevel%
+)
+call npm run build:prod
+if %errorlevel% neq 0 (
+    popd
+    echo Frontend build FAILED
+    exit /b %errorlevel%
+)
+popd
+
 echo ===== All checks passed =====

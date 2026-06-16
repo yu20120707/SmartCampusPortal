@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.campus.academic.mapper.CampusAcademicMapper">
+
+    <resultMap type="CampusStudent" id="CampusStudentResult">
+        <result property="studentId" column="student_id" />
+        <result property="userId" column="user_id" />
+        <result property="studentNo" column="student_no" />
+        <result property="studentName" column="student_name" />
+        <result property="collegeName" column="college_name" />
+        <result property="majorName" column="major_name" />
+        <result property="className" column="class_name" />
+        <result property="grade" column="grade" />
+    </resultMap>
+
+    <resultMap type="CampusTeacher" id="CampusTeacherResult">
+        <result property="teacherId" column="teacher_id" />
+        <result property="userId" column="user_id" />
+        <result property="teacherNo" column="teacher_no" />
+        <result property="teacherName" column="teacher_name" />
+        <result property="collegeName" column="college_name" />
+        <result property="title" column="title" />
+    </resultMap>
+
+    <resultMap type="CampusCourseSection" id="CampusCourseSectionResult">
+        <result property="sectionId" column="section_id" />
+        <result property="courseId" column="course_id" />
+        <result property="courseCode" column="course_code" />
+        <result property="courseName" column="course_name" />
+        <result property="teacherId" column="teacher_id" />
+        <result property="teacherName" column="teacher_name" />
+        <result property="termId" column="term_id" />
+        <result property="termName" column="term_name" />
+        <result property="weekday" column="weekday" />
+        <result property="startSection" column="start_section" />
+        <result property="endSection" column="end_section" />
+        <result property="classroom" column="classroom" />
+        <result property="weekRange" column="week_range" />
+        <result property="studentCount" column="student_count" />
+    </resultMap>
+
+    <resultMap type="CampusScore" id="CampusScoreResult">
+        <result property="scoreId" column="score_id" />
+        <result property="sectionId" column="section_id" />
+        <result property="courseName" column="course_name" />
+        <result property="termName" column="term_name" />
+        <result property="credit" column="credit" />
+        <result property="score" column="score" />
+        <result property="gradePoint" column="grade_point" />
+        <result property="examType" column="exam_type" />
+    </resultMap>
+
+    <resultMap type="CampusExam" id="CampusExamResult">
+        <result property="examId" column="exam_id" />
+        <result property="sectionId" column="section_id" />
+        <result property="courseName" column="course_name" />
+        <result property="teacherName" column="teacher_name" />
+        <result property="termName" column="term_name" />
+        <result property="examTime" column="exam_time" />
+        <result property="classroom" column="classroom" />
+        <result property="seatNo" column="seat_no" />
+        <result property="examType" column="exam_type" />
+    </resultMap>
+
+    <sql id="sectionColumns">
+        s.section_id,
+        c.course_id,
+        c.course_code,
+        c.course_name,
+        t.teacher_id,
+        t.teacher_name,
+        term.term_id,
+        term.term_name,
+        s.weekday,
+        s.start_section,
+        s.end_section,
+        s.classroom,
+        s.week_range
+    </sql>
+
+    <select id="selectStudentByUserId" parameterType="Long" resultMap="CampusStudentResult">
+        select student_id, user_id, student_no, student_name, college_name, major_name, class_name, grade
+        from campus_student
+        where user_id = #{userId}
+          and status = '0'
+        limit 1
+    </select>
+
+    <select id="selectTeacherByUserId" parameterType="Long" resultMap="CampusTeacherResult">
+        select teacher_id, user_id, teacher_no, teacher_name, college_name, title
+        from campus_teacher
+        where user_id = #{userId}
+          and status = '0'
+        limit 1
+    </select>
+
+    <select id="selectStudentCourses" parameterType="Long" resultMap="CampusCourseSectionResult">
+        select
+            <include refid="sectionColumns" />,
+            null as student_count
+        from campus_student_course sc
+            inner join campus_student stu on stu.student_id = sc.student_id
+            inner join campus_course_section s on s.section_id = sc.section_id
+            inner join campus_course c on c.course_id = s.course_id
+            inner join campus_teacher t on t.teacher_id = s.teacher_id
+            inner join campus_term term on term.term_id = s.term_id
+        where stu.user_id = #{userId}
+          and sc.status = '0'
+          and term.current_flag = 'Y'
+        order by s.weekday, s.start_section, c.course_name
+    </select>
+
+    <select id="selectStudentSchedule" parameterType="Long" resultMap="CampusCourseSectionResult">
+        select
+            <include refid="sectionColumns" />,
+            null as student_count
+        from campus_student_course sc
+            inner join campus_student stu on stu.student_id = sc.student_id
+            inner join campus_course_section s on s.section_id = sc.section_id
+            inner join campus_course c on c.course_id = s.course_id
+            inner join campus_teacher t on t.teacher_id = s.teacher_id
+            inner join campus_term term on term.term_id = s.term_id
+        where stu.user_id = #{userId}
+          and sc.status = '0'
+          and term.current_flag = 'Y'
+        order by s.weekday, s.start_section
+    </select>
+
+    <select id="selectStudentScores" parameterType="Long" resultMap="CampusScoreResult">
+        select
+            score.score_id,
+            score.section_id,
+            c.course_name,
+            term.term_name,
+            c.credit,
+            score.score,
+            score.grade_point,
+            score.exam_type
+        from campus_score score
+            inner join campus_student stu on stu.student_id = score.student_id
+            inner join campus_course_section s on s.section_id = score.section_id
+            inner join campus_course c on c.course_id = s.course_id
+            inner join campus_term term on term.term_id = s.term_id
+        where stu.user_id = #{userId}
+        order by term.start_date desc, c.course_name
+    </select>
+
+    <select id="selectStudentExams" parameterType="Long" resultMap="CampusExamResult">
+        select
+            e.exam_id,
+            e.section_id,
+            c.course_name,
+            t.teacher_name,
+            term.term_name,
+            e.exam_time,
+            e.classroom,
+            e.seat_no,
+            e.exam_type
+        from campus_exam e
+            inner join campus_student_course sc on sc.section_id = e.section_id
+            inner join campus_student stu on stu.student_id = sc.student_id
+            inner join campus_course_section s on s.section_id = e.section_id
+            inner join campus_course c on c.course_id = s.course_id
+            inner join campus_teacher t on t.teacher_id = s.teacher_id
+            inner join campus_term term on term.term_id = s.term_id
+        where stu.user_id = #{userId}
+          and sc.status = '0'
+        order by e.exam_time
+    </select>
+
+    <select id="selectTeacherCourses" parameterType="Long" resultMap="CampusCourseSectionResult">
+        select
+            <include refid="sectionColumns" />,
+            count(sc.student_id) as student_count
+        from campus_course_section s
+            inner join campus_course c on c.course_id = s.course_id
+            inner join campus_teacher t on t.teacher_id = s.teacher_id
+            inner join campus_term term on term.term_id = s.term_id
+            left join campus_student_course sc on sc.section_id = s.section_id and sc.status = '0'
+        where t.user_id = #{userId}
+          and term.current_flag = 'Y'
+        group by s.section_id, c.course_id, c.course_code, c.course_name, t.teacher_id, t.teacher_name,
+                 term.term_id, term.term_name, s.weekday, s.start_section, s.end_section, s.classroom, s.week_range
+        order by s.weekday, s.start_section, c.course_name
+    </select>
+
+    <select id="selectTeacherSchedule" parameterType="Long" resultMap="CampusCourseSectionResult">
+        select
+            <include refid="sectionColumns" />,
+            count(sc.student_id) as student_count
+        from campus_course_section s
+            inner join campus_course c on c.course_id = s.course_id
+            inner join campus_teacher t on t.teacher_id = s.teacher_id
+            inner join campus_term term on term.term_id = s.term_id
+            left join campus_student_course sc on sc.section_id = s.section_id and sc.status = '0'
+        where t.user_id = #{userId}
+          and term.current_flag = 'Y'
+        group by s.section_id, c.course_id, c.course_code, c.course_name, t.teacher_id, t.teacher_name,
+                 term.term_id, term.term_name, s.weekday, s.start_section, s.end_section, s.classroom, s.week_range
+        order by s.weekday, s.start_section
+    </select>
+
+    <select id="selectTeacherExams" parameterType="Long" resultMap="CampusExamResult">
+        select
+            e.exam_id,
+            e.section_id,
+            c.course_name,
+            t.teacher_name,
+            term.term_name,
+            e.exam_time,
+            e.classroom,
+            e.seat_no,
+            e.exam_type
+        from campus_exam e
+            inner join campus_course_section s on s.section_id = e.section_id
+            inner join campus_course c on c.course_id = s.course_id
+            inner join campus_teacher t on t.teacher_id = s.teacher_id
+            inner join campus_term term on term.term_id = s.term_id
+        where t.user_id = #{userId}
+        order by e.exam_time
+    </select>
+</mapper>

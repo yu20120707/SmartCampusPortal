@@ -10,7 +10,24 @@ if %errorlevel% neq 0 (
 )
 
 echo.
-echo ===== Backend build SUCCESS =====
+echo ===== Building Frontend =====
+pushd ruoyi-ui
+call npm install
+if %errorlevel% neq 0 (
+    popd
+    echo Frontend dependency install FAILED
+    exit /b %errorlevel%
+)
+call npm run build:prod
+if %errorlevel% neq 0 (
+    popd
+    echo Frontend build FAILED
+    exit /b %errorlevel%
+)
+popd
+
+echo.
+echo ===== Build SUCCESS =====
 
 echo.
 echo To start backend: mvn spring-boot:run -pl ruoyi-admin

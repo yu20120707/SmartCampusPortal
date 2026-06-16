@@ -82,4 +82,6 @@ OA 模块：
 
 ## 接口文档
 
-可选集成 Knife4j（Swagger 增强版），访问 `http://localhost:8080/doc.html`。
+当前项目使用 Springdoc OpenAPI，访问 `http://localhost:8080/swagger-ui.html`。
+
+新增校园接口时，确认 `springdoc.group-configs[*].packages-to-scan` 覆盖校园 controller 包。
