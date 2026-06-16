@@ -51,6 +51,8 @@ nbdist/
 .codex/
 .claude/
 docs/ai/tasks/
+.runtime/
+.runtime-frontend-logs/
 node_modules/
 dist/
 
