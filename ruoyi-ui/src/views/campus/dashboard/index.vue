@@ -12,6 +12,18 @@
       </el-col>
     </el-row>
 
+    <el-row :gutter="12">
+      <el-col v-for="card in operationCards" :key="card.title" :xs="12" :sm="6">
+        <el-card shadow="never" class="metric-card operation-card">
+          <div class="metric-title">{{ card.title }}</div>
+          <div class="metric-value">
+            {{ card.value }}
+            <span>{{ card.unit }}</span>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+
     <el-row :gutter="16">
       <el-col :xs="24" :lg="8">
         <el-card shadow="never" class="campus-panel">
@@ -37,6 +49,45 @@
           <el-table v-loading="loading" :data="scoreTrend" size="small">
             <el-table-column prop="name" label="学期" />
             <el-table-column prop="value" label="平均分" width="90" />
+          </el-table>
+        </el-card>
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="16">
+      <el-col :xs="24" :lg="6">
+        <el-card shadow="never" class="campus-panel">
+          <div slot="header" class="panel-header">审批运行概览</div>
+          <el-table v-loading="loading" :data="approvalStats" size="small">
+            <el-table-column prop="name" label="指标" />
+            <el-table-column prop="value" label="数量" width="90" />
+          </el-table>
+        </el-card>
+      </el-col>
+      <el-col :xs="24" :lg="6">
+        <el-card shadow="never" class="campus-panel">
+          <div slot="header" class="panel-header">缴费运行概览</div>
+          <el-table v-loading="loading" :data="paymentStats" size="small">
+            <el-table-column prop="name" label="指标" />
+            <el-table-column prop="value" label="数值" width="90" />
+          </el-table>
+        </el-card>
+      </el-col>
+      <el-col :xs="24" :lg="6">
+        <el-card shadow="never" class="campus-panel">
+          <div slot="header" class="panel-header">一卡通交易概览</div>
+          <el-table v-loading="loading" :data="cardTransactionStats" size="small">
+            <el-table-column prop="name" label="类型" />
+            <el-table-column prop="value" label="笔数" width="90" />
+          </el-table>
+        </el-card>
+      </el-col>
+      <el-col :xs="24" :lg="6">
+        <el-card shadow="never" class="campus-panel">
+          <div slot="header" class="panel-header">资产使用概览</div>
+          <el-table v-loading="loading" :data="assetStats" size="small">
+            <el-table-column prop="name" label="指标" />
+            <el-table-column prop="value" label="数量" width="90" />
           </el-table>
         </el-card>
       </el-col>
@@ -67,6 +118,21 @@ export default {
     },
     scoreTrend() {
       return this.dashboard.scoreTrend || []
+    },
+    operationCards() {
+      return this.dashboard.operationCards || []
+    },
+    approvalStats() {
+      return this.dashboard.approvalStats || []
+    },
+    paymentStats() {
+      return this.dashboard.paymentStats || []
+    },
+    cardTransactionStats() {
+      return this.dashboard.cardTransactionStats || []
+    },
+    assetStats() {
+      return this.dashboard.assetStats || []
     }
   },
   created() {
@@ -115,6 +181,10 @@ export default {
   color: #909399;
   font-size: 13px;
   font-weight: 400;
+}
+
+.operation-card {
+  border-left: 3px solid #409eff;
 }
 
 .panel-header {

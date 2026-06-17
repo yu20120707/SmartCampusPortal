@@ -48,6 +48,17 @@ Record key commands, important outputs, and notable failures.
 - Runtime API smoke: student applied to borrow `移动投影仪`; leader approved borrow `102`; status returned `2`; available quantity changed from `2` to `1`.
 - Security boundary: applicant identity comes from login state; approval locks pending borrow and decrements server-side asset stock only on approval.
 
+## 2026-06-17 Dashboard V2 Metrics Slice
+
+- Enhanced leader dashboard aggregation with V2 operation cards, approval stats, payment stats, card transaction stats, and asset stats.
+- Verification passed:
+- `mvn clean install -pl ruoyi-admin -am -DskipTests`
+- `NODE_OPTIONS=--openssl-legacy-provider npm run build:prod`
+- XML parse for `CampusDashboardMapper.xml`
+- Runtime API smoke: leader login returned code `200`; `/campus/dashboard/leader` returned code `200`.
+- Runtime API smoke counts: `operationCards=4`, `approvalStats=4`, `paymentStats=3`, `cardTransactionStats=2`, `assetStats=3`.
+- Representative runtime values: pending applications `1`, pending asset approvals `1`, unpaid amount `1200.0`, today card transactions `2`.
+
 ## Notable Small Blocks
 
 - Local backend process on `8081` locked `ruoyi-admin/target/ruoyi-admin.jar`, causing `mvn clean` to fail deleting the jar. Resolution: stop the Java process before rebuilding.

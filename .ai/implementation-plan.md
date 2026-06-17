@@ -37,9 +37,10 @@
 2. add lightweight campus card account workflow for balance, ledger, and demo recharge
 3. add lightweight payment center workflow for pending items, payment records, and demo payment
 4. add lightweight asset borrow workflow for available assets, borrow application, and leader approval
-5. keep all slices inside `campus/**` backend/frontend boundaries
-6. defer real Flowable orchestration, real payment/card gateway integration, and full asset lifecycle management until external integration decisions exist
-7. verify every slice with backend compile, frontend build, XML parse, and at least one authenticated API smoke path
+5. aggregate V2 runtime signals into the leader dashboard
+6. keep all slices inside `campus/**` backend/frontend boundaries
+7. defer real Flowable orchestration, real payment/card gateway integration, and full asset lifecycle management until external integration decisions exist
+8. verify every slice with backend compile, frontend build, XML parse, and at least one authenticated API smoke path
 
 ## Escalation Rules
 

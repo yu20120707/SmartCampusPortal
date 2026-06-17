@@ -24,6 +24,11 @@ public class CampusDashboardServiceImpl implements ICampusDashboardService
         dashboard.put("courseTypeStats", campusDashboardMapper.selectCourseTypeStats());
         dashboard.put("collegeStudentStats", campusDashboardMapper.selectCollegeStudentStats());
         dashboard.put("scoreTrend", campusDashboardMapper.selectScoreTrend());
+        dashboard.put("operationCards", campusDashboardMapper.selectOperationCards());
+        dashboard.put("approvalStats", campusDashboardMapper.selectApprovalStats());
+        dashboard.put("paymentStats", campusDashboardMapper.selectPaymentStats());
+        dashboard.put("cardTransactionStats", campusDashboardMapper.selectCardTransactionStats());
+        dashboard.put("assetStats", campusDashboardMapper.selectAssetStats());
         return dashboard;
     }
 }

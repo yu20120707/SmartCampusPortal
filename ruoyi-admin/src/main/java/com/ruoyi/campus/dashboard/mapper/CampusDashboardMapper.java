@@ -15,4 +15,14 @@ public interface CampusDashboardMapper
     List<Map<String, Object>> selectCollegeStudentStats();
 
     List<Map<String, Object>> selectScoreTrend();
+
+    List<Map<String, Object>> selectOperationCards();
+
+    List<Map<String, Object>> selectApprovalStats();
+
+    List<Map<String, Object>> selectPaymentStats();
+
+    List<Map<String, Object>> selectCardTransactionStats();
+
+    List<Map<String, Object>> selectAssetStats();
 }

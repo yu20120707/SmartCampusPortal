@@ -41,4 +41,82 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         group by term.term_id, term.term_name, term.start_date
         order by term.start_date
     </select>
+
+    <select id="selectOperationCards" resultType="map">
+        select '待审批申请' as title, count(*) as value, '条' as unit
+        from campus_application
+        where status = '1'
+        union all
+        select '待审批资产' as title, count(*) as value, '条' as unit
+        from campus_asset_borrow
+        where status = '1'
+        union all
+        select '待缴金额' as title, coalesce(round(sum(amount), 2), 0) as value, '元' as unit
+        from campus_payment_item
+        where status = 'unpaid'
+        union all
+        select '今日一卡通交易' as title, count(*) as value, '笔' as unit
+        from campus_card_transaction
+        where date(transaction_time) = curdate()
+    </select>
+
+    <select id="selectApprovalStats" resultType="map">
+        select 'OA待审批' as name, count(*) as value
+        from campus_application
+        where status = '1'
+        union all
+        select '资产待审批' as name, count(*) as value
+        from campus_asset_borrow
+        where status = '1'
+        union all
+        select 'OA已通过' as name, count(*) as value
+        from campus_application
+        where status = '2'
+        union all
+        select '资产已通过' as name, count(*) as value
+        from campus_asset_borrow
+        where status = '2'
+    </select>
+
+    <select id="selectPaymentStats" resultType="map">
+        select '待缴项目' as name, count(*) as value
+        from campus_payment_item
+        where status = 'unpaid'
+        union all
+        select '已缴项目' as name, count(*) as value
+        from campus_payment_item
+        where status = 'paid'
+        union all
+        select '已缴金额' as name, coalesce(round(sum(amount), 2), 0) as value
+        from campus_payment_record
+        where status = 'paid'
+    </select>
+
+    <select id="selectCardTransactionStats" resultType="map">
+        select
+            case transaction_type
+                when 'recharge' then '充值'
+                when 'consume' then '消费'
+                when 'refund' then '退款'
+                else transaction_type
+            end as name,
+            count(*) as value
+        from campus_card_transaction
+        group by transaction_type
+        order by value desc
+    </select>
+
+    <select id="selectAssetStats" resultType="map">
+        select '资产总数' as name, coalesce(sum(total_quantity), 0) as value
+        from campus_asset
+        where status = '0'
+        union all
+        select '可借数量' as name, coalesce(sum(available_quantity), 0) as value
+        from campus_asset
+        where status = '0'
+        union all
+        select '借出数量' as name, coalesce(sum(total_quantity - available_quantity), 0) as value
+        from campus_asset
+        where status = '0'
+    </select>
 </mapper>

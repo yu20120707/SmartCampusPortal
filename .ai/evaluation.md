@@ -26,15 +26,20 @@
 - payment API runtime smoke passed: student paid `英语四级报名费` for `30.00`, pending item count changed from `2` to `1`, and payment record count changed from `1` to `2`
 - asset borrow workflow has been added under `com.ruoyi.campus.asset`, `mapper/campus`, `views/campus/asset`, and `sql/campus_v2_asset.sql`
 - asset API runtime smoke passed: student applied to borrow `移动投影仪`, leader approved it, borrow status returned `2`, and available quantity changed from `2` to `1`
+- leader dashboard V2 operation metrics have been added to `CampusDashboardMapper.xml`, `CampusDashboardServiceImpl`, and `views/campus/dashboard/index.vue`
+- leader dashboard API runtime smoke passed and returned `operationCards`, `approvalStats`, `paymentStats`, `cardTransactionStats`, and `assetStats`
 - OA and campus card builds passed with `mvn clean install -pl ruoyi-admin -am -DskipTests`
 - OA and campus card frontend additions passed with `NODE_OPTIONS=--openssl-legacy-provider npm run build:prod`
 - payment center build passed with `mvn clean install -pl ruoyi-admin -am -DskipTests`
 - payment center frontend addition passed with `NODE_OPTIONS=--openssl-legacy-provider npm run build:prod`
 - asset module build passed with `mvn clean install -pl ruoyi-admin -am -DskipTests`
 - asset module frontend addition passed with `NODE_OPTIONS=--openssl-legacy-provider npm run build:prod`
+- dashboard V2 metrics build passed with `mvn clean install -pl ruoyi-admin -am -DskipTests`
+- dashboard V2 frontend addition passed with `NODE_OPTIONS=--openssl-legacy-provider npm run build:prod`
 - `CampusApplicationMapper.xml` and `CampusCardMapper.xml` were parsed as well-formed XML
 - `CampusPaymentMapper.xml` was parsed as well-formed XML
 - `CampusAssetMapper.xml` was parsed as well-formed XML
+- `CampusDashboardMapper.xml` was parsed as well-formed XML
 - `docs/ai/reuse-matrix.md` covers the PRD in phased form: V1, V2, V3
 - `docs/ai/v1-delivery-plan.md` narrows V1 into role-based deliverables and first-slice execution order
 - each V1 area has local backend and frontend landing zones
@@ -56,6 +61,7 @@
 - campus card recharge is currently an internal demo account/ledger write, not a real payment-channel integration
 - payment center demo pay is currently an internal state transition and record insert, not real payment gateway integration, callback processing, reconciliation, refund, or settlement
 - asset borrow is currently a lightweight borrow/approval flow, not full procurement, depreciation, inventory audit, repair, or return lifecycle management
+- leader dashboard V2 metrics assume V2 seed tables exist: `campus_application`, `campus_asset_borrow`, `campus_payment_item`, `campus_card_transaction`, and `campus_asset`
 - `campus_v2_office.sql` and `campus_v2_card.sql` use seed-style `drop table` initialization and should not be treated as production migrations
 - `campus_v2_payment.sql` uses seed-style `drop table` initialization and should not be treated as a production migration
 - `campus_v2_asset.sql` uses seed-style `drop table` initialization and should not be treated as a production migration
