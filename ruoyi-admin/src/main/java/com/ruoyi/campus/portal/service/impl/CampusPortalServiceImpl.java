@@ -115,11 +115,13 @@ public class CampusPortalServiceImpl implements ICampusPortalService
         {
             shortcuts.add(shortcut("我的教务", "/campus/academic/student"));
             shortcuts.add(shortcut("我的申请", "/campus/office/my"));
+            shortcuts.add(shortcut("一卡通", "/campus/card"));
         }
         if ("teacher".equals(roleType))
         {
             shortcuts.add(shortcut("任课视图", "/campus/academic/teacher"));
             shortcuts.add(shortcut("我的申请", "/campus/office/my"));
+            shortcuts.add(shortcut("一卡通", "/campus/card"));
         }
         if ("leader".equals(roleType) || "admin".equals(roleType))
         {
