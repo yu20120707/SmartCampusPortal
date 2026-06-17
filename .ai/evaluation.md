@@ -1,0 +1,49 @@
+# Evaluation
+
+## Validation Evidence
+
+- V1 campus backend implementation has been added under `ruoyi-admin/src/main/java/com/ruoyi/campus/**`
+- V1 mapper XML has been added under `ruoyi-admin/src/main/resources/mapper/campus/**`
+- V1 frontend API/page implementation has been added under `ruoyi-ui/src/api/campus/**` and `ruoyi-ui/src/views/campus/**`
+- V1 schema/menu seed scripts have been added as `sql/campus_v1_init.sql` and `sql/campus_v1_menu.sql`
+- backend verification passed with `mvn clean install -pl ruoyi-admin -am -DskipTests`
+- frontend verification passed with `NODE_OPTIONS=--openssl-legacy-provider npm run build:prod`
+- isolated MySQL 9.3 runtime started on `127.0.0.1:3307`
+- Redis 8.8 Windows fork runtime started on `127.0.0.1:6379` and returned `PONG`
+- SQL import passed for `ry_20260417.sql`, `quartz.sql`, `campus_v1_init.sql`, and `campus_v1_menu.sql`
+- SQL seed verification returned 5 users, 3 campus students, and 8 campus permission menus
+- backend runtime smoke passed on `127.0.0.1:8081`
+- `/captchaImage` returned `captchaEnabled:false` after runtime cache override for smoke testing
+- student, teacher, and leader API login passed with demo password `admin123`
+- role API smoke passed for `getInfo`, `getRouters`, portal, academic, teacher, and dashboard endpoints
+- frontend dev server started on `127.0.0.1:81` with `VUE_APP_PROXY_TARGET=http://127.0.0.1:8081`
+- browser smoke passed for student UI login, campus menu visibility, portal page, and student academic page
+- OA application workflow has been added under `com.ruoyi.campus.office`, `mapper/campus`, `views/campus/office`, and `sql/campus_v2_office.sql`
+- OA API runtime smoke passed: student created an application, leader saw it in todo, approved it, and student-side status returned `2`
+- campus card account workflow has been added under `com.ruoyi.campus.card`, `mapper/campus`, `views/campus/card`, and `sql/campus_v2_card.sql`
+- campus card API runtime smoke passed: student balance changed from `98.84` to `100.07` after a `1.23` demo recharge, and transaction count became `4`
+- OA and campus card builds passed with `mvn clean install -pl ruoyi-admin -am -DskipTests`
+- OA and campus card frontend additions passed with `NODE_OPTIONS=--openssl-legacy-provider npm run build:prod`
+- `CampusApplicationMapper.xml` and `CampusCardMapper.xml` were parsed as well-formed XML
+- `docs/ai/reuse-matrix.md` covers the PRD in phased form: V1, V2, V3
+- `docs/ai/v1-delivery-plan.md` narrows V1 into role-based deliverables and first-slice execution order
+- each V1 area has local backend and frontend landing zones
+- V1 acceptance criteria are defined by role and by portal behavior
+- V1 mapper XML, menu seed data, and frontend build verification are now explicit
+- the plan keeps core RuoYi modules out of default write scope
+- `docs/ai/README.md` points to both the reuse matrix and the V1 delivery plan
+- `.ai` task artifacts now describe a specific V1 large-mode task instead of a generic planning task
+
+## Remaining Risks
+
+- runtime smoke used an isolated local MySQL instance on port `3307`, not the existing MySQL service on `3306`
+- captcha was disabled in runtime cache for automated smoke; production/default captcha behavior still needs manual captcha validation if kept enabled
+- browser smoke was performed for the student UI path; teacher and leader were verified through authenticated APIs and route data
+- stack mismatch between references and the current scaffold
+- hidden external integration requirements if supposed V1 data is not locally available
+- workflow scope growth if approval requirements are pulled into V1
+- OA approval is currently a lightweight internal state workflow, not Flowable or multi-level process orchestration
+- campus card recharge is currently an internal demo account/ledger write, not a real payment-channel integration
+- `campus_v2_office.sql` and `campus_v2_card.sql` use seed-style `drop table` initialization and should not be treated as production migrations
+- PRD source quality is still limited by being stored as a transcript instead of a normalized requirements document
+- the exact MVP depth of teacher and leader experiences still needs to stay disciplined during implementation

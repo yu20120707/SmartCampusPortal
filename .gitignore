@@ -47,10 +47,10 @@ nbdist/
 !*/build/*.xml
 
 # Harness / AI workflow
-.ai/
 .codex/
 .claude/
 docs/ai/tasks/
+.ai/backups/
 .runtime/
 .runtime-frontend-logs/
 node_modules/
