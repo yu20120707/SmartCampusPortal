@@ -118,6 +118,19 @@ com.ruoyi.campus
 
 ## 本地运行
 
+### 推荐演示端口
+
+我们当前本地演示环境按下面端口运行：
+
+| 服务 | 地址 | 说明 |
+| --- | --- | --- |
+| MySQL | `127.0.0.1:3307` | 本地演示库，数据库名 `ry-vue` |
+| Redis | `127.0.0.1:6379` | 登录 token、验证码、缓存等 |
+| 后端 | `http://127.0.0.1:8081` | Spring Boot 服务 |
+| 前端 | `http://127.0.0.1:81` | Vue 开发服务，代理 `/dev-api` 到后端 |
+
+如果本机已经有 MySQL 或后端服务占用默认端口，可以继续使用上面的演示端口，避免和系统自带服务冲突。
+
 ### 1. 准备数据库
 
 创建数据库后，按顺序导入 SQL：
@@ -134,6 +147,28 @@ com.ruoyi.campus
 
 注意：当前 `campus_*` SQL 是演示 seed 脚本，包含 `drop table`，适合本地演示环境，不是生产迁移脚本。
 
+如果使用本项目当前演示端口 `3307`，可以在仓库根目录执行下面命令重建本地演示库。
+
+下面示例默认 `mysql` 命令已经加入 `PATH`。如果没有加入，请先将 MySQL `bin` 目录加入系统环境变量，或把 `mysql` 替换为本机实际的 MySQL 客户端可执行文件路径。
+
+```powershell
+@"
+drop database if exists ``ry-vue``;
+create database ``ry-vue`` default character set utf8mb4 collate utf8mb4_general_ci;
+use ``ry-vue``;
+source ./sql/ry_20260417.sql;
+source ./sql/quartz.sql;
+source ./sql/campus_v1_init.sql;
+source ./sql/campus_v1_menu.sql;
+source ./sql/campus_v2_office.sql;
+source ./sql/campus_v2_card.sql;
+source ./sql/campus_v2_payment.sql;
+source ./sql/campus_v2_asset.sql;
+source ./sql/campus_v2_student.sql;
+update sys_config set config_value='false' where config_key='sys.account.captchaEnabled';
+"@ | mysql --host=127.0.0.1 --port=3307 --user=root
+```
+
 ### 2. 启动 Redis
 
 使用本地 Redis 服务即可，默认配置连接 `127.0.0.1:6379`。
@@ -142,6 +177,12 @@ com.ruoyi.campus
 
 ```powershell
 mvn -pl ruoyi-admin spring-boot:run
+```
+
+如果使用当前演示库 `127.0.0.1:3307/ry-vue`，建议显式传入后端参数：
+
+```powershell
+mvn -pl ruoyi-admin spring-boot:run "-Dspring-boot.run.arguments=--server.port=8081 --spring.datasource.druid.master.url=jdbc:mysql://127.0.0.1:3307/ry-vue --spring.datasource.druid.master.username=root --spring.datasource.druid.master.password= --spring.data.redis.host=127.0.0.1 --spring.data.redis.port=6379"
 ```
 
 如需完整构建：
@@ -156,7 +197,15 @@ mvn clean install -pl ruoyi-admin -am -DskipTests
 cd ruoyi-ui
 npm install
 $env:NODE_OPTIONS="--openssl-legacy-provider"
+$env:port="81"
+$env:VUE_APP_PROXY_TARGET="http://127.0.0.1:8081"
 npm run dev
+```
+
+启动成功后访问：
+
+```text
+http://127.0.0.1:81/
 ```
 
 如需构建生产包：
@@ -165,6 +214,62 @@ npm run dev
 cd ruoyi-ui
 $env:NODE_OPTIONS="--openssl-legacy-provider"
 npm run build:prod
+```
+
+### 5. 当前联调链路
+
+开发环境前端使用 `ruoyi-ui/.env.development` 中的 `VUE_APP_BASE_API=/dev-api`。`vue.config.js` 会把 `/dev-api` 代理到 `VUE_APP_PROXY_TARGET`，因此本地联调推荐：
+
+```text
+浏览器 -> http://127.0.0.1:81
+前端代理 -> /dev-api
+后端服务 -> http://127.0.0.1:8081
+数据库 -> 127.0.0.1:3307/ry-vue
+Redis -> 127.0.0.1:6379
+```
+
+如果本机设置了 `http_proxy` / `https_proxy`，命令行验证本地接口时建议绕过代理：
+
+```powershell
+curl.exe --noproxy "*" http://127.0.0.1:8081/captchaImage
+curl.exe --noproxy "*" http://127.0.0.1:81/
+```
+
+## 构建方式
+
+### 后端构建
+
+```powershell
+mvn clean install -pl ruoyi-admin -am -DskipTests
+```
+
+说明：
+
+- `-pl ruoyi-admin` 指定启动模块。
+- `-am` 会同时构建 `ruoyi-admin` 依赖的模块。
+- `-DskipTests` 适合本地快速打包；需要测试时可去掉。
+
+### 前端构建
+
+```powershell
+cd ruoyi-ui
+npm install
+$env:NODE_OPTIONS="--openssl-legacy-provider"
+npm run build:prod
+```
+
+构建产物输出到：
+
+```text
+ruoyi-ui/dist/
+```
+
+如果只需要测试环境包：
+
+```powershell
+cd ruoyi-ui
+$env:NODE_OPTIONS="--openssl-legacy-provider"
+npm run build:stage
 ```
 
 ## 关键页面
@@ -189,7 +294,7 @@ npm run build:prod
 后端启动后可运行 smoke 脚本验证三类账号的主要 API 闭环：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts\campus_smoke.ps1 -BaseUrl http://127.0.0.1:8080 -Password admin123
+powershell -ExecutionPolicy Bypass -File scripts\campus_smoke.ps1 -BaseUrl http://127.0.0.1:8081 -Password admin123
 ```
 
 常用检查：
