@@ -104,3 +104,11 @@ Record key commands, important outputs, and notable failures.
 - MySQL `source` did not work via `-e`; pipe SQL to mysql stdin for non-interactive imports.
 - A frontend production build timed out while leftover node build processes were still running. Resolution: stop only node processes started by that build window, then rerun with a longer timeout.
 - Runtime smoke disables captcha through Redis key `sys_config:sys.account.captchaEnabled=false`; production/default captcha still needs manual validation if captcha remains enabled.
+
+## 2026-06-17 MVP Documentation Freeze
+
+- Added `docs/ai/mvp-scope.md` to freeze current MVP included capabilities, acceptance gates, non-goals, known constraints, and hardening priorities.
+- Added `docs/ai/reference-implementation-strategy.md` to define how future complex capabilities should reference GitHub projects by adapting models and flows instead of copying another scaffold wholesale.
+- Updated `docs/ai/README.md` so both new documents are visible from the team document index.
+- No runtime code changed in this documentation freeze.
+- Decision: future complex features should move through scoped V2 planning and reference analysis unless they are required for MVP stability, demo reliability, or acceptance verification.

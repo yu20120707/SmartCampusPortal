@@ -56,3 +56,11 @@
 - escalate if student affairs moves from read-first records into counselor workflow, dormitory operations, evaluations, or奖助勤贷补 lifecycle management
 - escalate if elective management requires capacity control, prerequisites, selection rounds, waitlists, or admin scheduling screens
 - escalate if score management requires audit workflow, publish/retract state, make-up exams, transcript locking, or historical versioning
+
+## Phase F: MVP Freeze And Hardening
+
+1. freeze the current MVP feature scope as the running acceptance baseline
+2. document current included capabilities, non-goals, known constraints, and acceptance gates
+3. document the reference-project strategy for post-MVP complex capabilities
+4. prioritize setup/runbook documentation, repeatable smoke scripts, SQL initialization notes, and browser smoke expansion
+5. defer Flowable orchestration, real payment/card integration, full scheduling, score audit, full student affairs workflows, and full asset lifecycle until a separate V2 design gate

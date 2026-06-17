@@ -22,5 +22,7 @@ Recommended reading by task type:
 | Windows 开发调试指南 | `windows-dev.md` |
 | PRD 落地与 GitHub 复用规划 | `reuse-matrix.md` |
 | V1 交付规划 | `v1-delivery-plan.md` |
+| MVP 范围冻结与验收 | `mvp-scope.md` |
+| 外部项目参考与复用策略 | `reference-implementation-strategy.md` |
 
 If a change crosses several areas, read all relevant files first and keep the task notes explicit.

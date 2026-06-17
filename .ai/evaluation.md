@@ -58,11 +58,13 @@
 - `CampusAcademicMapper.xml` teacher score additions were parsed as well-formed XML
 - `docs/ai/reuse-matrix.md` covers the PRD in phased form: V1, V2, V3
 - `docs/ai/v1-delivery-plan.md` narrows V1 into role-based deliverables and first-slice execution order
+- `docs/ai/mvp-scope.md` freezes the current MVP scope, acceptance gates, non-goals, known constraints, and hardening priorities
+- `docs/ai/reference-implementation-strategy.md` documents how future complex capabilities should reference GitHub projects by adapting models and flows instead of copying another scaffold wholesale
 - each V1 area has local backend and frontend landing zones
 - V1 acceptance criteria are defined by role and by portal behavior
 - V1 mapper XML, menu seed data, and frontend build verification are now explicit
 - the plan keeps core RuoYi modules out of default write scope
-- `docs/ai/README.md` points to both the reuse matrix and the V1 delivery plan
+- `docs/ai/README.md` points to the reuse matrix, V1 delivery plan, MVP scope, and reference implementation strategy
 - `.ai` task artifacts now describe a specific V1 large-mode task instead of a generic planning task
 
 ## Remaining Risks
@@ -81,6 +83,7 @@
 - student affairs is currently a read-first profile and record view, not a full counselor workflow, evaluation workflow, dormitory management, or奖助勤贷补 lifecycle
 - academic elective is currently a lightweight student-side enroll/drop flow without capacity limits, prerequisite rules, selection rounds, waitlists, or admin scheduling management
 - teacher score entry is currently a lightweight direct score update without score audit, publish/retract state, make-up exam handling, or transcript locking
+- MVP scope is now intentionally frozen; production-grade complex workflows are deferred unless they are required for MVP stability, demo reliability, or acceptance verification
 - `campus_v2_office.sql` and `campus_v2_card.sql` use seed-style `drop table` initialization and should not be treated as production migrations
 - `campus_v2_payment.sql` uses seed-style `drop table` initialization and should not be treated as a production migration
 - `campus_v2_asset.sql` uses seed-style `drop table` initialization and should not be treated as a production migration
