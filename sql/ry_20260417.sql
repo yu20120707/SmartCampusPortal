@@ -23,16 +23,16 @@ create table sys_dept (
 -- ----------------------------
 -- 初始化-部门表数据
 -- ----------------------------
-insert into sys_dept values(100,  0,   '0',          '若依科技',   0, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '', null);
-insert into sys_dept values(101,  100, '0,100',      '深圳总公司', 1, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '', null);
-insert into sys_dept values(102,  100, '0,100',      '长沙分公司', 2, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '', null);
-insert into sys_dept values(103,  101, '0,100,101',  '研发部门',   1, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '', null);
-insert into sys_dept values(104,  101, '0,100,101',  '市场部门',   2, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '', null);
-insert into sys_dept values(105,  101, '0,100,101',  '测试部门',   3, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '', null);
-insert into sys_dept values(106,  101, '0,100,101',  '财务部门',   4, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '', null);
-insert into sys_dept values(107,  101, '0,100,101',  '运维部门',   5, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '', null);
-insert into sys_dept values(108,  102, '0,100,102',  '市场部门',   1, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '', null);
-insert into sys_dept values(109,  102, '0,100,102',  '财务部门',   2, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '', null);
+insert into sys_dept values(100,  0,   '0',          '华迪大学',       0, '校办',   '15888888888', 'portal@example.edu.cn', '0', '0', 'admin', sysdate(), '', null);
+insert into sys_dept values(101,  100, '0,100',      '教务处',         1, '教务处', '15888888888', 'academic@example.edu.cn', '0', '0', 'admin', sysdate(), '', null);
+insert into sys_dept values(102,  100, '0,100',      '学生工作处',     2, '学工处', '15888888888', 'student@example.edu.cn', '0', '0', 'admin', sysdate(), '', null);
+insert into sys_dept values(103,  101, '0,100,101',  '信息工程学院',   1, '学院办', '15888888888', 'cs@example.edu.cn', '0', '0', 'admin', sysdate(), '', null);
+insert into sys_dept values(104,  101, '0,100,101',  '经济管理学院',   2, '学院办', '15888888888', 'biz@example.edu.cn', '0', '0', 'admin', sysdate(), '', null);
+insert into sys_dept values(105,  101, '0,100,101',  '基础教学部',     3, '教学部', '15888888888', 'basic@example.edu.cn', '0', '0', 'admin', sysdate(), '', null);
+insert into sys_dept values(106,  100, '0,100',      '财务处',         4, '财务处', '15888888888', 'finance@example.edu.cn', '0', '0', 'admin', sysdate(), '', null);
+insert into sys_dept values(107,  100, '0,100',      '信息中心',       5, '信息中心', '15888888888', 'it@example.edu.cn', '0', '0', 'admin', sysdate(), '', null);
+insert into sys_dept values(108,  102, '0,100,102',  '招生就业办公室', 1, '招就办', '15888888888', 'admission@example.edu.cn', '0', '0', 'admin', sysdate(), '', null);
+insert into sys_dept values(109,  102, '0,100,102',  '资助管理中心',   2, '资助中心', '15888888888', 'aid@example.edu.cn', '0', '0', 'admin', sysdate(), '', null);
 
 
 -- ----------------------------
@@ -66,8 +66,8 @@ create table sys_user (
 -- ----------------------------
 -- 初始化-用户信息表数据
 -- ----------------------------
-insert into sys_user values(1,  103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', sysdate(), sysdate(), 'admin', sysdate(), '', null, '管理员');
-insert into sys_user values(2,  105, 'ry',    '若依', '00', 'ry@qq.com',  '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', sysdate(), sysdate(), 'admin', sysdate(), '', null, '测试员');
+insert into sys_user values(1,  103, 'admin', '门户管理员', '00', 'admin@example.edu.cn', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', sysdate(), sysdate(), 'admin', sysdate(), '', null, '系统管理员');
+insert into sys_user values(2,  105, 'demo',  '演示用户',   '00', 'demo@example.edu.cn',  '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', sysdate(), sysdate(), 'admin', sysdate(), '', null, '通用演示账号');
 
 
 -- ----------------------------
@@ -162,7 +162,7 @@ create table sys_menu (
 insert into sys_menu values('1', '系统管理', '0', '1', 'system',           null, '', '', 1, 0, 'M', '0', '0', '', 'system',   'admin', sysdate(), '', null, '系统管理目录');
 insert into sys_menu values('2', '系统监控', '0', '2', 'monitor',          null, '', '', 1, 0, 'M', '0', '0', '', 'monitor',  'admin', sysdate(), '', null, '系统监控目录');
 insert into sys_menu values('3', '系统工具', '0', '3', 'tool',             null, '', '', 1, 0, 'M', '0', '0', '', 'tool',     'admin', sysdate(), '', null, '系统工具目录');
-insert into sys_menu values('4', '若依官网', '0', '4', 'http://ruoyi.vip', null, '', '', 0, 0, 'M', '0', '0', '', 'guide',    'admin', sysdate(), '', null, '若依官网地址');
+insert into sys_menu values('4', '校园门户说明', '0', '4', 'campus-guide', 'campus/portal/index', '', '', 1, 0, 'C', '1', '0', 'campus:portal:view', 'guide', 'admin', sysdate(), '', null, '校园门户说明入口');
 -- 二级菜单
 insert into sys_menu values('100',  '用户管理', '1',   '1', 'user',       'system/user/index',        '', '', 1, 0, 'C', '0', '0', 'system:user:list',        'user',          'admin', sysdate(), '', null, '用户管理菜单');
 insert into sys_menu values('101',  '角色管理', '1',   '2', 'role',       'system/role/index',        '', '', 1, 0, 'C', '0', '0', 'system:role:list',        'peoples',       'admin', sysdate(), '', null, '角色管理菜单');
@@ -642,9 +642,14 @@ create table sys_notice (
 -- ----------------------------
 -- 初始化-公告信息表数据
 -- ----------------------------
-insert into sys_notice values('1', '温馨提醒：2018-07-01 若依新版本发布啦', '2', '新版本内容', '0', 'admin', sysdate(), '', null, '管理员');
-insert into sys_notice values('2', '维护通知：2018-07-01 若依系统凌晨维护', '1', '维护内容',   '0', 'admin', sysdate(), '', null, '管理员');
-insert into sys_notice values('3', '若依开源框架介绍', '1', '<p><span style=\"color: rgb(230, 0, 0);\">项目介绍</span></p><p><font color=\"#333333\">RuoYi开源项目是为企业用户定制的后台脚手架框架，为企业打造的一站式解决方案，降低企业开发成本，提升开发效率。主要包括用户管理、角色管理、部门管理、菜单管理、参数管理、字典管理、</font><span style=\"color: rgb(51, 51, 51);\">岗位管理</span><span style=\"color: rgb(51, 51, 51);\">、定时任务</span><span style=\"color: rgb(51, 51, 51);\">、</span><span style=\"color: rgb(51, 51, 51);\">服务监控、登录日志、操作日志、代码生成等功能。其中，还支持多数据源、数据权限、国际化、Redis缓存、Docker部署、滑动验证码、第三方认证登录、分布式事务、</span><font color=\"#333333\">分布式文件存储</font><span style=\"color: rgb(51, 51, 51);\">、分库分表处理等技术特点。</span></p><p><img src=\"https://foruda.gitee.com/images/1773931848342439032/a4d22313_1815095.png\" style=\"width: 64px;\"><br></p><p><span style=\"color: rgb(230, 0, 0);\">官网及演示</span></p><p><span style=\"color: rgb(51, 51, 51);\">若依官网地址：&nbsp;</span><a href=\"http://ruoyi.vip\" target=\"_blank\">http://ruoyi.vip</a><a href=\"http://ruoyi.vip\" target=\"_blank\"></a></p><p><span style=\"color: rgb(51, 51, 51);\">若依文档地址：&nbsp;</span><a href=\"http://doc.ruoyi.vip\" target=\"_blank\">http://doc.ruoyi.vip</a><br></p><p><span style=\"color: rgb(51, 51, 51);\">演示地址【不分离版】：&nbsp;</span><a href=\"http://demo.ruoyi.vip\" target=\"_blank\">http://demo.ruoyi.vip</a></p><p><span style=\"color: rgb(51, 51, 51);\">演示地址【分离版本】：&nbsp;</span><a href=\"http://vue.ruoyi.vip\" target=\"_blank\">http://vue.ruoyi.vip</a></p><p><span style=\"color: rgb(51, 51, 51);\">演示地址【微服务版】：&nbsp;</span><a href=\"http://cloud.ruoyi.vip\" target=\"_blank\">http://cloud.ruoyi.vip</a></p><p><span style=\"color: rgb(51, 51, 51);\">演示地址【移动端版】：&nbsp;</span><a href=\"http://h5.ruoyi.vip\" target=\"_blank\">http://h5.ruoyi.vip</a></p><p><br style=\"color: rgb(48, 49, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 12px;\"></p>', '0', 'admin', sysdate(), '', null, '管理员');
+insert into sys_notice values('1', '智慧校园门户 MVP 演示环境已开放', '2', '学生、教师、领导三类演示账号已准备完成，可分别查看角色化门户、教务信息、审批待办和领导驾驶舱。', '0', 'admin', sysdate(), '', null, '门户管理员');
+insert into sys_notice values('2', '校园数据联调维护通知', '1', '本环境使用 mock 数据演示统一门户能力，后续将按业务系统逐步替换为真实教务、学工、OA、一卡通和资产数据源。', '0', 'admin', sysdate(), '', null, '门户管理员');
+insert into sys_notice values('3', '高校智慧校园门户功能说明', '1', '<p><span style=\"color: rgb(23, 96, 82);\">项目说明</span></p><p>高校智慧校园门户聚焦学校业务系统的信息整合，当前 MVP 以 Web 端为主，提供学生、教师、领导三类用户的差异化首页和业务入口。</p><p><span style=\"color: rgb(23, 96, 82);\">当前范围</span></p><p>学生侧覆盖课程、成绩、考试、一卡通、缴费、申请和学工信息；教师侧覆盖任课、成绩录入、考试安排、审批和资产借用；领导侧覆盖统计驾驶舱、待办审批、资产、缴费和学工概览。</p><p><span style=\"color: rgb(23, 96, 82);\">后续扩展</span></p><p>单点登录、多系统真实数据同步、移动端、流程引擎和校园资源开放能力先记录为扩展能力，不进入本轮 MVP 强交付。</p>', '0', 'admin', sysdate(), '', null, '门户管理员');
+insert into sys_notice values('4', '第十六周课程与考试安排提醒', '2', '请学生及时查看本周课表和考试安排，教师请完成监考信息确认。', '0', 'admin', date_sub(sysdate(), interval 1 day), '', null, '教务处');
+insert into sys_notice values('5', '一卡通线上充值演示窗口开放', '2', '演示环境已准备最近消费与充值 mock 数据，可在门户首页和一卡通页面查看。', '0', 'admin', date_sub(sysdate(), interval 2 day), '', null, '信息中心');
+insert into sys_notice values('6', '学校举办智慧校园建设交流会', '1', '学校组织召开智慧校园建设交流会，围绕数据融合、统一门户和业务流程整合开展研讨。', '0', 'admin', date_sub(sysdate(), interval 3 day), '', null, '校办');
+insert into sys_notice values('7', '开放实验室预约服务试运行', '1', '开放实验室资源预约服务进入试运行阶段，师生可通过资产借用入口提交演示申请。', '0', 'admin', date_sub(sysdate(), interval 4 day), '', null, '实验中心');
+insert into sys_notice values('8', '学生服务事项线上办理持续完善', '1', '学工、缴费、申请等学生服务事项正在统一门户中持续整合，后续将逐步接入真实业务系统。', '0', 'admin', date_sub(sysdate(), interval 5 day), '', null, '学生工作处');
 
 
 -- ----------------------------

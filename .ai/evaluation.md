@@ -61,6 +61,18 @@
 - `docs/ai/mvp-scope.md` freezes the current MVP scope, acceptance gates, non-goals, known constraints, and hardening priorities
 - `docs/ai/reference-implementation-strategy.md` documents how future complex capabilities should reference GitHub projects by adapting models and flows instead of copying another scaffold wholesale
 - `scripts/campus_smoke.ps1` and `scripts/campus_smoke.bat` provide a repeatable MVP API smoke entry for student, teacher, and leader demo accounts
+- visible scaffold branding was removed from the root README, frontend title/env metadata, package metadata, navbar source/doc links, and default home page
+- `docs/ai/product-scope.md` now records that 全真项目 6 is the delivery target and 全真项目 5 is a reference capability pool
+- MVP scope and reuse docs now explicitly defer mobile web, WeChat, APP, and production-grade expansion capabilities
+- campus seed data has been expanded across academic, OA, card, payment, asset, and student affairs scripts for richer MVP demos
+- frontend productization build passed with `NODE_OPTIONS=--openssl-legacy-provider npm run build:prod`
+- visible frontend/README scaffold-brand scan returned no matches for the removed RuoYi display strings
+- local MySQL 9.3 runtime was restarted on `127.0.0.1:3307`
+- local Redis 8.8 runtime was restarted on `127.0.0.1:6379` and returned `PONG`
+- demo database `ry-vue` was rebuilt and SQL import passed for `ry_20260417.sql`, `quartz.sql`, and all current `campus_*` scripts
+- enriched seed verification returned 9 students, 5 teachers, 10 courses, 19 scores, 6 applications, 10 card transactions, 6 payment items, 6 assets, and 9 student affairs profiles
+- backend runtime restarted on `127.0.0.1:8081` against the enriched `3307` demo database
+- full `scripts/campus_smoke.ps1 -BaseUrl http://127.0.0.1:8081 -Password admin123` passed for student, teacher, and leader API paths after productization and mock-data expansion
 - each V1 area has local backend and frontend landing zones
 - V1 acceptance criteria are defined by role and by portal behavior
 - V1 mapper XML, menu seed data, and frontend build verification are now explicit

@@ -1,8 +1,8 @@
 {
-  "name": "ruoyi",
-  "version": "3.9.2",
-  "description": "若依管理系统",
-  "author": "若依",
+  "name": "smart-campus-portal",
+  "version": "0.1.0",
+  "description": "高校智慧校园统一门户",
+  "author": "SmartCampusPortal",
   "license": "MIT",
   "scripts": {
     "dev": "vue-cli-service serve",
@@ -15,13 +15,13 @@
     "admin",
     "dashboard",
     "element-ui",
-    "boilerplate",
-    "admin-template",
-    "management-system"
+    "campus",
+    "portal",
+    "smart-campus"
   ],
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/y_project/RuoYi-Vue.git"
+    "url": ""
   },
   "dependencies": {
     "@riophae/vue-treeselect": "0.4.0",

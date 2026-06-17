@@ -6,6 +6,7 @@ import 'nprogress/nprogress.css'
 import { getToken } from '@/utils/auth'
 import { isPathMatch } from '@/utils/validate'
 import { isRelogin } from '@/utils/request'
+import { getCampusHomePath, isDefaultHomePath } from '@/utils/campusHome'
 
 NProgress.configure({ showSpinner: false })
 
@@ -22,7 +23,7 @@ router.beforeEach((to, from, next) => {
     const isLock = store.getters.isLock
     /* has token*/
     if (to.path === '/login') {
-      next({ path: '/' })
+      next({ path: getCampusHomePath(store.getters.roles) })
       NProgress.done()
     } else if (isWhiteList(to.path)) {
       next()
@@ -41,7 +42,11 @@ router.beforeEach((to, from, next) => {
           store.dispatch('GenerateRoutes').then(accessRoutes => {
             // 根据roles权限生成可访问的路由表
             router.addRoutes(accessRoutes) // 动态添加可访问路由表
-            next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
+            if (isDefaultHomePath(to.path)) {
+              next({ path: getCampusHomePath(store.getters.roles), replace: true })
+            } else {
+              next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
+            }
           })
         }).catch(err => {
           store.dispatch('LogOut').then(() => {
@@ -50,7 +55,11 @@ router.beforeEach((to, from, next) => {
           })
         })
       } else {
-        next()
+        if (isDefaultHomePath(to.path)) {
+          next({ path: getCampusHomePath(store.getters.roles), replace: true })
+        } else {
+          next()
+        }
       }
     }
   } else {

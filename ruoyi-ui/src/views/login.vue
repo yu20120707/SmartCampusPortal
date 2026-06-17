@@ -38,6 +38,18 @@
         </div>
       </el-form-item>
       <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>
+      <div class="demo-accounts">
+        <div class="demo-title">演示账号</div>
+        <el-button
+          v-for="account in demoAccounts"
+          :key="account.username"
+          size="mini"
+          plain
+          @click="useDemoAccount(account)"
+        >
+          {{ account.label }}
+        </el-button>
+      </div>
       <el-form-item style="width:100%;">
         <el-button
           :loading="loading"
@@ -75,12 +87,17 @@ export default {
       footerContent: defaultSettings.footerContent,
       codeUrl: "",
       loginForm: {
-        username: "admin",
+        username: "student",
         password: "admin123",
         rememberMe: false,
         code: "",
         uuid: ""
       },
+      demoAccounts: [
+        { label: "学生", username: "student", password: "admin123" },
+        { label: "教师", username: "teacher", password: "admin123" },
+        { label: "领导", username: "leader", password: "admin123" }
+      ],
       loginRules: {
         username: [
           { required: true, trigger: "blur", message: "请输入您的账号" }
@@ -129,6 +146,11 @@ export default {
         password: password === undefined ? this.loginForm.password : decrypt(password),
         rememberMe: rememberMe === undefined ? false : Boolean(rememberMe)
       }
+    },
+    useDemoAccount(account) {
+      this.loginForm.username = account.username
+      this.loginForm.password = account.password
+      this.loginForm.rememberMe = false
     },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
@@ -195,6 +217,22 @@ export default {
   font-size: 13px;
   text-align: center;
   color: #bfbfbf;
+}
+.demo-accounts {
+  margin: -8px 0 18px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #f3faf7;
+  border: 1px solid #d9eee6;
+  .demo-title {
+    margin-bottom: 8px;
+    color: #2f6f5e;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .el-button {
+    margin: 0 8px 6px 0;
+  }
 }
 .login-code {
   width: 33%;

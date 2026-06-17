@@ -6,7 +6,8 @@ This document translates the PRD into a reuse-first implementation plan.
 
 Goal:
 
-- implement the full PRD on top of the current RuoYi-Vue scaffold
+- implement 全真项目 6 高校智慧校园门户 on top of the current scaffold
+- use 全真项目 5 智慧校园服务平台 as a reference capability pool, not as a mandatory MVP checklist
 - maximize reuse of existing open-source implementations
 - avoid broad rewrites of RuoYi core modules
 - keep new campus business code inside campus-specific backend and frontend areas
@@ -17,6 +18,7 @@ Goal:
 - Backend runtime: `Spring Boot 4.x` + `JDK 17`
 - Frontend runtime: `Vue 2` + `Element UI`
 - Existing core modules to preserve: `ruoyi-framework`, `ruoyi-common`, `ruoyi-system`
+- Visible product surface should be branded as SmartCampusPortal / 高校智慧校园门户, not as the base scaffold.
 
 Local landing zones for new business code:
 

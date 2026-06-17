@@ -50,9 +50,15 @@ create table campus_asset_borrow (
 insert into campus_asset values(100, 'ASSET20260001', '移动投影仪', 'device', '公共教学楼 A101', 3, 2, '0', 'admin', sysdate(), '', null, '演示资产');
 insert into campus_asset values(101, 'ASSET20260002', '会议室 B203', 'room', '行政楼 B203', 1, 1, '0', 'admin', sysdate(), '', null, '演示资产');
 insert into campus_asset values(102, 'ASSET20260003', '创新创业指导图书套装', 'book', '图书馆三层服务台', 5, 4, '0', 'admin', sysdate(), '', null, '演示资产');
+insert into campus_asset values(103, 'ASSET20260004', '无人机航拍套件', 'device', '创新创业中心 205', 2, 1, '0', 'admin', sysdate(), '', null, 'MVP演示资产');
+insert into campus_asset values(104, 'ASSET20260005', '开放实验室工位', 'room', '实验楼 L501', 8, 6, '0', 'admin', sysdate(), '', null, 'MVP演示资产');
+insert into campus_asset values(105, 'ASSET20260006', '便携录播设备', 'device', '现代教育技术中心', 4, 3, '0', 'admin', sysdate(), '', null, 'MVP演示资产');
 
 insert into campus_asset_borrow values(100, 100, 201, 'student', '课程展示需要借用投影仪', '1', null, '', null, date_sub(sysdate(), interval 1 day), null, 'student', sysdate(), '', null, '');
 insert into campus_asset_borrow values(101, 102, 202, 'teacher', '教学备课参考资料', '2', 203, 'leader', '同意借用', date_sub(sysdate(), interval 3 day), date_sub(sysdate(), interval 2 day), 'teacher', sysdate(), 'leader', sysdate(), '');
+insert into campus_asset_borrow values(102, 103, 201, 'student', '学科竞赛作品拍摄需要借用无人机套件', '1', null, '', null, date_sub(sysdate(), interval 6 hour), null, 'student', sysdate(), '', null, '');
+insert into campus_asset_borrow values(103, 104, 202, 'teacher', '课程项目路演需要预约开放实验室工位', '2', 203, 'leader', '同意使用，请遵守实验室开放时间。', date_sub(sysdate(), interval 5 day), date_sub(sysdate(), interval 4 day), 'teacher', sysdate(), 'leader', sysdate(), '');
+insert into campus_asset_borrow values(104, 105, 201, 'student', '毕业设计访谈录制需要便携录播设备', '3', 203, 'leader', '当前设备排期冲突，请调整借用时间。', date_sub(sysdate(), interval 10 day), date_sub(sysdate(), interval 9 day), 'student', sysdate(), 'leader', sysdate(), '');
 
 insert into sys_menu values(2050, '资产借用', 2000, 8, 'asset', null, '', '', 1, 0, 'M', '0', '0', '', 'tool', 'admin', sysdate(), '', null, '校园资产借用');
 insert into sys_menu values(2051, '资产申请', 2050, 1, 'index', 'campus/asset/index', '', '', 1, 0, 'C', '0', '0', 'campus:asset:borrow', 'list', 'admin', sysdate(), '', null, '资产借用申请');

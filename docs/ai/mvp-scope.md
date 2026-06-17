@@ -4,6 +4,15 @@
 
 This document freezes the current MVP boundary for team visibility.
 
+For concrete first-screen and secondary-page scope by role, see `mvp-page-freeze.md`.
+For deferred capabilities grouped by business domain, see `extension-capabilities.md`.
+
+Current product target:
+
+- 全真项目 6 高校智慧校园门户 is the active delivery target.
+- 全真项目 5 智慧校园服务平台 is a reference capability pool because Project 6 has limited feature detail.
+- Mobile web, WeChat, and native app surfaces are deferred.
+
 MVP principle:
 
 - 可演示
@@ -98,11 +107,12 @@ These are intentionally deferred and should not be pulled into MVP unless the te
 
 ## Next MVP Hardening Priorities
 
-1. Add a setup/runbook document for local database, Redis, backend, and frontend startup.
-2. Maintain one-command smoke scripts for repeatable API checks through `scripts/campus_smoke.ps1`.
-3. Normalize SQL initialization order and document destructive seed scripts clearly.
-4. Add browser smoke coverage for the teacher, leader, OA, payment, card, asset, and student affairs pages.
-5. Keep `docs/ai/README.md`, `.ai/state.json`, and `.ai/evaluation.md` synchronized after each accepted slice.
+1. Remove visible scaffold branding from README and the web UI.
+2. Add a setup/runbook document for local database, Redis, backend, and frontend startup.
+3. Maintain one-command smoke scripts for repeatable API checks through `scripts/campus_smoke.ps1`.
+4. Normalize SQL initialization order and document destructive seed scripts clearly.
+5. Add browser smoke coverage for the teacher, leader, OA, payment, card, asset, and student affairs pages.
+6. Keep `docs/ai/README.md`, `.ai/state.json`, and `.ai/evaluation.md` synchronized after each accepted slice.
 
 ## Scope Decision
 

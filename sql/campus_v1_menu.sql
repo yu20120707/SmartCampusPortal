@@ -1,7 +1,7 @@
 -- ----------------------------
 -- SmartCampusPortal V1 menu, role, and demo user seed data
 -- Apply after sql/ry_20260417.sql and sql/campus_v1_init.sql.
--- Demo password is the same encrypted password used by the RuoYi sample users.
+-- Demo password hash is reused for all local campus demo accounts.
 -- ----------------------------
 
 insert into sys_role values(110, '学生', 'student', 10, 5, 1, 1, '0', '0', 'admin', sysdate(), '', null, '校园学生角色');

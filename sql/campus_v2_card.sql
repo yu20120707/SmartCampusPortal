@@ -52,6 +52,12 @@ insert into campus_card_transaction values(100, 100, 'CARD202606170001', 'rechar
 insert into campus_card_transaction values(101, 100, 'CARD202606170002', 'consume', 13.50, 86.50, '第一食堂午餐', 'success', date_sub(sysdate(), interval 1 day), 'admin', sysdate(), '', null, '');
 insert into campus_card_transaction values(102, 101, 'CARD202606170003', 'recharge', 150.00, 150.00, '线上充值', 'success', date_sub(sysdate(), interval 3 day), 'admin', sysdate(), '', null, '');
 insert into campus_card_transaction values(103, 101, 'CARD202606170004', 'consume', 24.00, 126.00, '校园超市', 'success', date_sub(sysdate(), interval 1 day), 'admin', sysdate(), '', null, '');
+insert into campus_card_transaction values(104, 100, 'CARD202606170005', 'consume', 6.00, 80.50, '图书馆打印', 'success', date_sub(sysdate(), interval 20 hour), 'admin', sysdate(), '', null, '');
+insert into campus_card_transaction values(105, 100, 'CARD202606170006', 'consume', 4.50, 76.00, '校园公交', 'success', date_sub(sysdate(), interval 10 hour), 'admin', sysdate(), '', null, '');
+insert into campus_card_transaction values(106, 100, 'CARD202606170007', 'recharge', 20.00, 96.00, '线上充值', 'success', date_sub(sysdate(), interval 3 hour), 'admin', sysdate(), '', null, '');
+insert into campus_card_transaction values(107, 100, 'CARD202606170008', 'consume', 9.50, 86.50, '第二食堂晚餐', 'success', date_sub(sysdate(), interval 1 hour), 'admin', sysdate(), '', null, '');
+insert into campus_card_transaction values(108, 101, 'CARD202606170009', 'consume', 18.00, 108.00, '教师餐厅午餐', 'success', date_sub(sysdate(), interval 6 hour), 'admin', sysdate(), '', null, '');
+insert into campus_card_transaction values(109, 101, 'CARD202606170010', 'refund', 18.00, 126.00, '教师餐厅退款', 'success', date_sub(sysdate(), interval 5 hour), 'admin', sysdate(), '', null, '');
 
 insert into sys_menu values(2030, '一卡通', 2000, 6, 'card', 'campus/card/index', '', '', 1, 0, 'C', '0', '0', 'campus:card:view', 'money', 'admin', sysdate(), '', null, '校园一卡通');
 insert into sys_menu values(2031, '一卡通查看', 2030, 1, '', '', '', '', 1, 0, 'F', '0', '0', 'campus:card:view', '#', 'admin', sysdate(), '', null, '');

@@ -33,7 +33,11 @@ create table campus_application (
 
 insert into campus_application values
 (100, 'APP202606170001', 'leave', '外出参加竞赛请假', '参加省级软件设计竞赛，需要请假一天。', 201, 'student', 'student', '1', null, '', '', sysdate(), null, 'student', sysdate(), '', null, 'V2样例待审批申请'),
-(101, 'APP202606170002', 'repair', '实验室设备报修', '明德楼A201投影设备无法正常开机。', 202, 'teacher', 'teacher', '2', 203, 'leader', '已安排信息中心处理。', sysdate(), sysdate(), 'teacher', sysdate(), 'leader', sysdate(), 'V2样例已审批申请');
+(101, 'APP202606170002', 'repair', '实验室设备报修', '明德楼A201投影设备无法正常开机。', 202, 'teacher', 'teacher', '2', 203, 'leader', '已安排信息中心处理。', sysdate(), sysdate(), 'teacher', sysdate(), 'leader', sysdate(), 'V2样例已审批申请'),
+(102, 'APP202606170003', 'aid', '临时困难补助申请', '家庭突发情况，申请临时困难补助用于本月生活支出。', 201, 'student', 'student', '1', null, '', '', date_sub(sysdate(), interval 1 day), null, 'student', date_sub(sysdate(), interval 1 day), '', null, 'MVP样例待审批申请'),
+(103, 'APP202606170004', 'competition', '学科竞赛报名备案', '报名参加大学生创新创业训练项目校赛，需要学院备案。', 201, 'student', 'student', '2', 203, 'leader', '同意备案，注意按时提交作品材料。', date_sub(sysdate(), interval 5 day), date_sub(sysdate(), interval 4 day), 'student', date_sub(sysdate(), interval 5 day), 'leader', date_sub(sysdate(), interval 4 day), 'MVP样例已审批申请'),
+(104, 'APP202606170005', 'meeting', '教学研讨会议室申请', '申请行政楼B203用于本周五课程建设研讨。', 202, 'teacher', 'teacher', '1', null, '', '', date_sub(sysdate(), interval 2 hour), null, 'teacher', date_sub(sysdate(), interval 2 hour), '', null, 'MVP样例教师待审批申请'),
+(105, 'APP202606170006', 'leave', '病假申请', '因身体不适申请病假半天，已附校医院诊断说明。', 201, 'student', 'student', '3', 203, 'leader', '材料不完整，请补充校医院证明。', date_sub(sysdate(), interval 8 day), date_sub(sysdate(), interval 7 day), 'student', date_sub(sysdate(), interval 8 day), 'leader', date_sub(sysdate(), interval 7 day), 'MVP样例已驳回申请');
 
 insert into sys_menu values(2020, '校园办公', 2000, 5, 'office', null, '', '', 1, 0, 'M', '0', '0', '', 'form', 'admin', sysdate(), '', null, '校园办公目录');
 insert into sys_menu values(2021, '我的申请', 2020, 1, 'my', 'campus/office/my', '', '', 1, 0, 'C', '0', '0', 'campus:office:apply', 'edit', 'admin', sysdate(), '', null, '我的校园申请');

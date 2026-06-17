@@ -50,8 +50,13 @@ create table campus_payment_record (
 insert into campus_payment_item values(100, 201, 'PAYITEM202606170001', '2026 学年住宿费', 'dorm', 1200.00, 'unpaid', date_add(curdate(), interval 20 day), 'admin', sysdate(), '', null, '学生演示待缴');
 insert into campus_payment_item values(101, 201, 'PAYITEM202606170002', '英语四级报名费', 'exam', 30.00, 'unpaid', date_add(curdate(), interval 10 day), 'admin', sysdate(), '', null, '学生演示待缴');
 insert into campus_payment_item values(102, 201, 'PAYITEM202606170003', '2025 秋季教材费', 'other', 268.50, 'paid', date_sub(curdate(), interval 30 day), 'admin', sysdate(), 'admin', sysdate(), '学生演示已缴');
+insert into campus_payment_item values(103, 201, 'PAYITEM202606170004', '创新创业实践材料费', 'practice', 85.00, 'unpaid', date_add(curdate(), interval 15 day), 'admin', sysdate(), '', null, 'MVP样例待缴');
+insert into campus_payment_item values(104, 201, 'PAYITEM202606170005', '学位外语报名费', 'exam', 45.00, 'paid', date_sub(curdate(), interval 20 day), 'admin', sysdate(), 'admin', sysdate(), 'MVP样例已缴');
+insert into campus_payment_item values(105, 202, 'PAYITEM202606170006', '教师培训资料费', 'training', 128.00, 'paid', date_sub(curdate(), interval 12 day), 'admin', sysdate(), 'admin', sysdate(), '教师样例已缴');
 
 insert into campus_payment_record values(100, 102, 201, 'PAY202606170001', '2025 秋季教材费', 'other', 268.50, 'demo', 'paid', date_sub(sysdate(), interval 7 day), 'admin', sysdate(), '', null, '');
+insert into campus_payment_record values(101, 104, 201, 'PAY202606170002', '学位外语报名费', 'exam', 45.00, 'demo', 'paid', date_sub(sysdate(), interval 18 day), 'admin', sysdate(), '', null, '');
+insert into campus_payment_record values(102, 105, 202, 'PAY202606170003', '教师培训资料费', 'training', 128.00, 'demo', 'paid', date_sub(sysdate(), interval 10 day), 'admin', sysdate(), '', null, '');
 
 insert into sys_menu values(2040, '缴费中心', 2000, 7, 'payment', 'campus/payment/index', '', '', 1, 0, 'C', '0', '0', 'campus:payment:view', 'money', 'admin', sysdate(), '', null, '校园缴费中心');
 insert into sys_menu values(2041, '缴费查看', 2040, 1, '', '', '', '', 1, 0, 'F', '0', '0', 'campus:payment:view', '#', 'admin', sysdate(), '', null, '');
