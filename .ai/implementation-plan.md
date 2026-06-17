@@ -35,9 +35,10 @@
 
 1. add lightweight OA application workflow for submit, todo, approve, and reject
 2. add lightweight campus card account workflow for balance, ledger, and demo recharge
-3. keep both slices inside `campus/**` backend/frontend boundaries
-4. defer real Flowable orchestration and real payment/card gateway integration until external integration decisions exist
-5. verify every slice with backend compile, frontend build, XML parse, and at least one authenticated API smoke path
+3. add lightweight payment center workflow for pending items, payment records, and demo payment
+4. keep all slices inside `campus/**` backend/frontend boundaries
+5. defer real Flowable orchestration and real payment/card gateway integration until external integration decisions exist
+6. verify every slice with backend compile, frontend build, XML parse, and at least one authenticated API smoke path
 
 ## Escalation Rules
 

@@ -22,9 +22,14 @@
 - OA API runtime smoke passed: student created an application, leader saw it in todo, approved it, and student-side status returned `2`
 - campus card account workflow has been added under `com.ruoyi.campus.card`, `mapper/campus`, `views/campus/card`, and `sql/campus_v2_card.sql`
 - campus card API runtime smoke passed: student balance changed from `98.84` to `100.07` after a `1.23` demo recharge, and transaction count became `4`
+- payment center workflow has been added under `com.ruoyi.campus.payment`, `mapper/campus`, `views/campus/payment`, and `sql/campus_v2_payment.sql`
+- payment API runtime smoke passed: student paid `英语四级报名费` for `30.00`, pending item count changed from `2` to `1`, and payment record count changed from `1` to `2`
 - OA and campus card builds passed with `mvn clean install -pl ruoyi-admin -am -DskipTests`
 - OA and campus card frontend additions passed with `NODE_OPTIONS=--openssl-legacy-provider npm run build:prod`
+- payment center build passed with `mvn clean install -pl ruoyi-admin -am -DskipTests`
+- payment center frontend addition passed with `NODE_OPTIONS=--openssl-legacy-provider npm run build:prod`
 - `CampusApplicationMapper.xml` and `CampusCardMapper.xml` were parsed as well-formed XML
+- `CampusPaymentMapper.xml` was parsed as well-formed XML
 - `docs/ai/reuse-matrix.md` covers the PRD in phased form: V1, V2, V3
 - `docs/ai/v1-delivery-plan.md` narrows V1 into role-based deliverables and first-slice execution order
 - each V1 area has local backend and frontend landing zones
@@ -44,6 +49,8 @@
 - workflow scope growth if approval requirements are pulled into V1
 - OA approval is currently a lightweight internal state workflow, not Flowable or multi-level process orchestration
 - campus card recharge is currently an internal demo account/ledger write, not a real payment-channel integration
+- payment center demo pay is currently an internal state transition and record insert, not real payment gateway integration, callback processing, reconciliation, refund, or settlement
 - `campus_v2_office.sql` and `campus_v2_card.sql` use seed-style `drop table` initialization and should not be treated as production migrations
+- `campus_v2_payment.sql` uses seed-style `drop table` initialization and should not be treated as a production migration
 - PRD source quality is still limited by being stored as a transcript instead of a normalized requirements document
 - the exact MVP depth of teacher and leader experiences still needs to stay disciplined during implementation

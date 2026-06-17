@@ -28,6 +28,16 @@ Record key commands, important outputs, and notable failures.
 - XML parse for `CampusCardMapper.xml`
 - Runtime API smoke: student balance changed from `98.84` to `100.07` after a `1.23` demo recharge; transaction count became `4`.
 
+## 2026-06-17 Payment Center Slice
+
+- Added `campus_v2_payment.sql`, backend `com.ruoyi.campus.payment`, mapper XML, frontend API, and `views/campus/payment`.
+- Verification passed:
+- `mvn clean install -pl ruoyi-admin -am -DskipTests`
+- `NODE_OPTIONS=--openssl-legacy-provider npm run build:prod`
+- XML parse for `CampusPaymentMapper.xml`
+- Runtime API smoke: student paid `英语四级报名费` for `30.00`; pending count changed from `2` to `1`; record count changed from `1` to `2`.
+- Security boundary: amount is read from the database-side pending item, not accepted from the frontend request.
+
 ## Notable Small Blocks
 
 - Local backend process on `8081` locked `ruoyi-admin/target/ruoyi-admin.jar`, causing `mvn clean` to fail deleting the jar. Resolution: stop the Java process before rebuilding.
