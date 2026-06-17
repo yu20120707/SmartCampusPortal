@@ -29,4 +29,10 @@ public interface ICampusAcademicService
     List<CampusCourseSection> selectMyTeachingSchedule(Long userId);
 
     List<CampusExam> selectMyTeachingExams(Long userId);
+
+    List<CampusCourseSection> selectAvailableSections(Long userId);
+
+    int enrollSection(Long sectionId, Long userId);
+
+    int dropSection(Long sectionId, Long userId);
 }

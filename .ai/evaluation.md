@@ -31,6 +31,8 @@
 - student affairs read-first slice has been added under `com.ruoyi.campus.student`, `mapper/campus`, `views/campus/student`, and `sql/campus_v2_student.sql`
 - student affairs API runtime smoke passed: student profile returned `陈一一`, student records returned `2`, leader overview returned `3` profiles and `3` record stat groups
 - student and leader route smoke passed for `campus/student/my` and `campus/student/overview`
+- academic elective workflow has been added to existing `com.ruoyi.campus.academic`, `CampusAcademicMapper.xml`, `academic.js`, and `views/campus/academic/student.vue`
+- academic elective API runtime smoke passed: student saw section `103` as available, enrolled it, course list included it, dropped it, and availability returned
 - OA and campus card builds passed with `mvn clean install -pl ruoyi-admin -am -DskipTests`
 - OA and campus card frontend additions passed with `NODE_OPTIONS=--openssl-legacy-provider npm run build:prod`
 - payment center build passed with `mvn clean install -pl ruoyi-admin -am -DskipTests`
@@ -41,11 +43,14 @@
 - dashboard V2 frontend addition passed with `NODE_OPTIONS=--openssl-legacy-provider npm run build:prod`
 - student affairs module build passed with `mvn clean install -pl ruoyi-admin -am -DskipTests`
 - student affairs frontend addition passed with `NODE_OPTIONS=--openssl-legacy-provider npm run build:prod`
+- academic elective build passed with `mvn clean install -pl ruoyi-admin -am -DskipTests`
+- academic elective frontend addition passed with `NODE_OPTIONS=--openssl-legacy-provider npm run build:prod`
 - `CampusApplicationMapper.xml` and `CampusCardMapper.xml` were parsed as well-formed XML
 - `CampusPaymentMapper.xml` was parsed as well-formed XML
 - `CampusAssetMapper.xml` was parsed as well-formed XML
 - `CampusDashboardMapper.xml` was parsed as well-formed XML
 - `CampusStudentAffairsMapper.xml` was parsed as well-formed XML
+- `CampusAcademicMapper.xml` elective additions were parsed as well-formed XML
 - `docs/ai/reuse-matrix.md` covers the PRD in phased form: V1, V2, V3
 - `docs/ai/v1-delivery-plan.md` narrows V1 into role-based deliverables and first-slice execution order
 - each V1 area has local backend and frontend landing zones
@@ -69,6 +74,7 @@
 - asset borrow is currently a lightweight borrow/approval flow, not full procurement, depreciation, inventory audit, repair, or return lifecycle management
 - leader dashboard V2 metrics assume V2 seed tables exist: `campus_application`, `campus_asset_borrow`, `campus_payment_item`, `campus_card_transaction`, and `campus_asset`
 - student affairs is currently a read-first profile and record view, not a full counselor workflow, evaluation workflow, dormitory management, or奖助勤贷补 lifecycle
+- academic elective is currently a lightweight student-side enroll/drop flow without capacity limits, prerequisite rules, selection rounds, waitlists, or admin scheduling management
 - `campus_v2_office.sql` and `campus_v2_card.sql` use seed-style `drop table` initialization and should not be treated as production migrations
 - `campus_v2_payment.sql` uses seed-style `drop table` initialization and should not be treated as a production migration
 - `campus_v2_asset.sql` uses seed-style `drop table` initialization and should not be treated as a production migration

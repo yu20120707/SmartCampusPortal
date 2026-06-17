@@ -39,9 +39,10 @@
 4. add lightweight asset borrow workflow for available assets, borrow application, and leader approval
 5. aggregate V2 runtime signals into the leader dashboard
 6. add read-first student affairs profile and record views
-7. keep all slices inside `campus/**` backend/frontend boundaries
-8. defer real Flowable orchestration, real payment/card gateway integration, full student affairs workflows, and full asset lifecycle management until external integration decisions exist
-9. verify every slice with backend compile, frontend build, XML parse, and at least one authenticated API smoke path
+7. add lightweight student-side elective enroll/drop flow
+8. keep all slices inside `campus/**` backend/frontend boundaries
+9. defer real Flowable orchestration, real payment/card gateway integration, full student affairs workflows, full academic scheduling, and full asset lifecycle management until external integration decisions exist
+10. verify every slice with backend compile, frontend build, XML parse, and at least one authenticated API smoke path
 
 ## Escalation Rules
 
@@ -52,3 +53,4 @@
 - escalate if OA moves from single-step approval to multi-level process modeling or Flowable integration
 - escalate if asset management moves from borrow approval into procurement, depreciation, audit, repair, or return lifecycle management
 - escalate if student affairs moves from read-first records into counselor workflow, dormitory operations, evaluations, or奖助勤贷补 lifecycle management
+- escalate if elective management requires capacity control, prerequisites, selection rounds, waitlists, or admin scheduling screens

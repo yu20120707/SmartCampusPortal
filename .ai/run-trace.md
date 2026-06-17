@@ -71,6 +71,18 @@ Record key commands, important outputs, and notable failures.
 - Runtime API smoke: leader overview returned `3` profiles and `3` record stat groups.
 - Route smoke: student saw `campus/student/my`; leader saw `campus/student/overview`.
 
+## 2026-06-17 Academic Elective Slice
+
+- Added lightweight student-side elective APIs to existing `com.ruoyi.campus.academic` and the student academic page.
+- Verification passed:
+- `mvn clean install -pl ruoyi-admin -am -DskipTests`
+- `NODE_OPTIONS=--openssl-legacy-provider npm run build:prod`
+- XML parse for `CampusAcademicMapper.xml`
+- Runtime API smoke: student saw section `103` (`信息系统分析`) as available.
+- Runtime API smoke: student enrolled section `103`; selected course count for that section became `1`; available count became `0`.
+- Runtime API smoke: student dropped section `103`; selected count returned to `0`; available count returned to `1`.
+- Safety boundary: smoke restored the selected course state after testing.
+
 ## Notable Small Blocks
 
 - Local backend process on `8081` locked `ruoyi-admin/target/ruoyi-admin.jar`, causing `mvn clean` to fail deleting the jar. Resolution: stop the Java process before rebuilding.
@@ -78,4 +90,5 @@ Record key commands, important outputs, and notable failures.
 - PowerShell `Invoke-RestMethod`/`curl.exe` JSON quoting produced misleading login timeouts and URL parsing errors. Resolution: pass JSON via stdin using `--data-binary @-` and quote `@-` in PowerShell.
 - MySQL CLI on PowerShell misread `-h127.0.0.1` as host `127`; use `--host=127.0.0.1 --port=3307` instead.
 - MySQL `source` did not work via `-e`; pipe SQL to mysql stdin for non-interactive imports.
+- A frontend production build timed out while leftover node build processes were still running. Resolution: stop only node processes started by that build window, then rerun with a longer timeout.
 - Runtime smoke disables captcha through Redis key `sys_config:sys.account.captchaEnabled=false`; production/default captcha still needs manual validation if captcha remains enabled.

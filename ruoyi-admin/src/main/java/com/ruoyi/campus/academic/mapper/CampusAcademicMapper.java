@@ -31,4 +31,18 @@ public interface CampusAcademicMapper
 
     List<CampusExam> selectTeacherExams(@Param("userId") Long userId);
 
+    Long selectStudentIdByUserId(@Param("userId") Long userId);
+
+    int countCurrentSection(@Param("sectionId") Long sectionId);
+
+    int countActiveSelection(@Param("studentId") Long studentId, @Param("sectionId") Long sectionId);
+
+    int countScheduleConflict(@Param("userId") Long userId, @Param("sectionId") Long sectionId);
+
+    List<CampusCourseSection> selectAvailableSections(@Param("userId") Long userId);
+
+    int insertStudentCourse(@Param("studentId") Long studentId, @Param("sectionId") Long sectionId);
+
+    int dropStudentCourse(@Param("studentId") Long studentId, @Param("sectionId") Long sectionId);
+
 }

@@ -3,6 +3,9 @@ package com.ruoyi.campus.academic.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.ruoyi.campus.academic.service.ICampusAcademicService;
@@ -52,6 +55,27 @@ public class CampusAcademicController extends BaseController
     public AjaxResult myExams()
     {
         return success(campusAcademicService.selectMyExams(getUserId()));
+    }
+
+    @PreAuthorize("@ss.hasPermi('campus:academic:view')")
+    @GetMapping("/electives/available")
+    public AjaxResult availableElectives()
+    {
+        return success(campusAcademicService.selectAvailableSections(getUserId()));
+    }
+
+    @PreAuthorize("@ss.hasPermi('campus:academic:view')")
+    @PostMapping("/electives/{sectionId}/enroll")
+    public AjaxResult enroll(@PathVariable Long sectionId)
+    {
+        return toAjax(campusAcademicService.enrollSection(sectionId, getUserId()));
+    }
+
+    @PreAuthorize("@ss.hasPermi('campus:academic:view')")
+    @DeleteMapping("/electives/{sectionId}")
+    public AjaxResult drop(@PathVariable Long sectionId)
+    {
+        return toAjax(campusAcademicService.dropSection(sectionId, getUserId()));
     }
 
     @PreAuthorize("@ss.hasPermi('campus:teacher:view')")

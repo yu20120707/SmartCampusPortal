@@ -88,6 +88,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         limit 1
     </select>
 
+    <select id="selectStudentIdByUserId" parameterType="Long" resultType="Long">
+        select student_id
+        from campus_student
+        where user_id = #{userId}
+          and status = '0'
+        limit 1
+    </select>
+
     <select id="selectTeacherByUserId" parameterType="Long" resultMap="CampusTeacherResult">
         select teacher_id, user_id, teacher_no, teacher_name, college_name, title
         from campus_teacher
@@ -169,6 +177,72 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
           and sc.status = '0'
         order by e.exam_time
     </select>
+
+    <select id="selectAvailableSections" parameterType="Long" resultMap="CampusCourseSectionResult">
+        select
+            <include refid="sectionColumns" />,
+            count(sc.student_id) as student_count
+        from campus_course_section s
+            inner join campus_course c on c.course_id = s.course_id
+            inner join campus_teacher t on t.teacher_id = s.teacher_id
+            inner join campus_term term on term.term_id = s.term_id
+            left join campus_student_course sc on sc.section_id = s.section_id and sc.status = '0'
+            left join campus_student stu on stu.user_id = #{userId} and stu.status = '0'
+            left join campus_student_course mine on mine.student_id = stu.student_id
+                and mine.section_id = s.section_id
+                and mine.status = '0'
+        where term.current_flag = 'Y'
+          and c.status = '0'
+          and mine.section_id is null
+        group by s.section_id, c.course_id, c.course_code, c.course_name, t.teacher_id, t.teacher_name,
+                 term.term_id, term.term_name, s.weekday, s.start_section, s.end_section, s.classroom, s.week_range
+        order by s.weekday, s.start_section, c.course_name
+    </select>
+
+    <select id="countCurrentSection" parameterType="Long" resultType="int">
+        select count(1)
+        from campus_course_section s
+            inner join campus_course c on c.course_id = s.course_id
+            inner join campus_term term on term.term_id = s.term_id
+        where s.section_id = #{sectionId}
+          and c.status = '0'
+          and term.current_flag = 'Y'
+    </select>
+
+    <select id="countActiveSelection" resultType="int">
+        select count(1)
+        from campus_student_course
+        where student_id = #{studentId}
+          and section_id = #{sectionId}
+          and status = '0'
+    </select>
+
+    <select id="countScheduleConflict" resultType="int">
+        select count(1)
+        from campus_student_course sc
+            inner join campus_student stu on stu.student_id = sc.student_id
+            inner join campus_course_section selected on selected.section_id = sc.section_id
+            inner join campus_course_section target on target.section_id = #{sectionId}
+        where stu.user_id = #{userId}
+          and sc.status = '0'
+          and selected.weekday = target.weekday
+          and selected.start_section &lt;= target.end_section
+          and selected.end_section &gt;= target.start_section
+    </select>
+
+    <insert id="insertStudentCourse">
+        insert into campus_student_course(student_id, section_id, status)
+        values(#{studentId}, #{sectionId}, '0')
+        on duplicate key update status = '0'
+    </insert>
+
+    <update id="dropStudentCourse">
+        update campus_student_course
+        set status = '1'
+        where student_id = #{studentId}
+          and section_id = #{sectionId}
+          and status = '0'
+    </update>
 
     <select id="selectTeacherCourses" parameterType="Long" resultMap="CampusCourseSectionResult">
         select

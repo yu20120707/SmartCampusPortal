@@ -35,6 +35,27 @@ export function listMyExams() {
   })
 }
 
+export function listAvailableElectives() {
+  return request({
+    url: '/campus/academic/electives/available',
+    method: 'get'
+  })
+}
+
+export function enrollElective(sectionId) {
+  return request({
+    url: `/campus/academic/electives/${sectionId}/enroll`,
+    method: 'post'
+  })
+}
+
+export function dropElective(sectionId) {
+  return request({
+    url: `/campus/academic/electives/${sectionId}`,
+    method: 'delete'
+  })
+}
+
 export function getTeacherProfile() {
   return request({
     url: '/campus/academic/teacher/profile',
