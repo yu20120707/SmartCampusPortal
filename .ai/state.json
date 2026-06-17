@@ -2,11 +2,11 @@
   "schema_version": 1,
   "mode": "large",
   "profile": "java-spring-vue",
-  "status": "V2_INCREMENTAL_SMOKE_PASSED",
+  "status": "MVP_SMOKE_SCRIPT_ADDED",
   "current_gate": null,
-  "approved_gates": ["runtime-smoke", "office-smoke", "card-smoke", "payment-smoke", "asset-smoke", "dashboard-v2-smoke", "student-affairs-smoke", "academic-elective-smoke", "teacher-score-smoke"],
+  "approved_gates": ["runtime-smoke", "office-smoke", "card-smoke", "payment-smoke", "asset-smoke", "dashboard-v2-smoke", "student-affairs-smoke", "academic-elective-smoke", "teacher-score-smoke", "mvp-smoke-script"],
   "created_by": "Auto_AICoding_Harness",
   "task_id": "v1-delivery-baseline",
   "task_title": "Implement campus portal baseline and V2 runtime slices",
-  "updated_at": "2026-06-17T17:10:00+08:00"
+  "updated_at": "2026-06-17T17:35:00+08:00"
 }

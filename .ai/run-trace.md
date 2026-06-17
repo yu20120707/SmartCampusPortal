@@ -112,3 +112,12 @@ Record key commands, important outputs, and notable failures.
 - Updated `docs/ai/README.md` so both new documents are visible from the team document index.
 - No runtime code changed in this documentation freeze.
 - Decision: future complex features should move through scoped V2 planning and reference analysis unless they are required for MVP stability, demo reliability, or acceptance verification.
+
+## 2026-06-17 MVP API Smoke Script
+
+- Added `scripts/campus_smoke.ps1` and `scripts/campus_smoke.bat` as repeatable MVP API smoke entry points.
+- The script logs in with `student`, `teacher`, and `leader` demo accounts and checks the read-only campus API surface for portal, academic, office, card, payment, asset, dashboard, and student affairs modules.
+- The script intentionally does not start MySQL, Redis, or Spring Boot, and it does not mutate demo data by default.
+- Verification passed: `powershell -NoProfile -ExecutionPolicy Bypass -File scripts\campus_smoke.ps1 -Help`.
+- Verification passed: PowerShell language parser reported no syntax errors for `scripts/campus_smoke.ps1`.
+- Full API smoke was not rerun in this step because `127.0.0.1:8081` was not listening.

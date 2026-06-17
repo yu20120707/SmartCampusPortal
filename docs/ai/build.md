@@ -41,6 +41,27 @@ npm run preview  # 预览生产构建
 3. `mvn spring-boot:run -pl ruoyi-admin` 启动后端
 4. `cd ruoyi-ui && npm run dev` 启动前端
 
+## MVP API Smoke
+
+后端启动后，可以用脚本验证当前 MVP 的学生、教师、领导三类演示账号 API 闭环：
+
+```powershell
+scripts\campus_smoke.ps1
+
+# 指定后端地址
+scripts\campus_smoke.ps1 -BaseUrl http://127.0.0.1:8081
+
+# bat 入口
+scripts\campus_smoke.bat
+```
+
+前置条件：
+
+- MySQL 和 Redis 已启动。
+- `ry_20260417.sql`、`quartz.sql`、`campus_v1_init.sql`、`campus_v1_menu.sql` 以及相关 `campus_v2_*.sql` 已导入。
+- 后端已启动。
+- 自动化 smoke 环境下需要关闭验证码，或保证 `/login` 不要求验证码。
+
 ## 常见构建问题
 
 - Maven 依赖下载慢 → 配置阿里云镜像到 `settings.xml`

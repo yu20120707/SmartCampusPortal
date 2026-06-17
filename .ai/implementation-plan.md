@@ -62,5 +62,6 @@
 1. freeze the current MVP feature scope as the running acceptance baseline
 2. document current included capabilities, non-goals, known constraints, and acceptance gates
 3. document the reference-project strategy for post-MVP complex capabilities
-4. prioritize setup/runbook documentation, repeatable smoke scripts, SQL initialization notes, and browser smoke expansion
-5. defer Flowable orchestration, real payment/card integration, full scheduling, score audit, full student affairs workflows, and full asset lifecycle until a separate V2 design gate
+4. maintain repeatable MVP API smoke scripts under `scripts/campus_smoke.ps1`
+5. prioritize setup/runbook documentation, SQL initialization notes, and browser smoke expansion
+6. defer Flowable orchestration, real payment/card integration, full scheduling, score audit, full student affairs workflows, and full asset lifecycle until a separate V2 design gate

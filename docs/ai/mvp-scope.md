@@ -99,7 +99,7 @@ These are intentionally deferred and should not be pulled into MVP unless the te
 ## Next MVP Hardening Priorities
 
 1. Add a setup/runbook document for local database, Redis, backend, and frontend startup.
-2. Add one-command smoke scripts for repeatable API checks.
+2. Maintain one-command smoke scripts for repeatable API checks through `scripts/campus_smoke.ps1`.
 3. Normalize SQL initialization order and document destructive seed scripts clearly.
 4. Add browser smoke coverage for the teacher, leader, OA, payment, card, asset, and student affairs pages.
 5. Keep `docs/ai/README.md`, `.ai/state.json`, and `.ai/evaluation.md` synchronized after each accepted slice.

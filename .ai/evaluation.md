@@ -60,17 +60,22 @@
 - `docs/ai/v1-delivery-plan.md` narrows V1 into role-based deliverables and first-slice execution order
 - `docs/ai/mvp-scope.md` freezes the current MVP scope, acceptance gates, non-goals, known constraints, and hardening priorities
 - `docs/ai/reference-implementation-strategy.md` documents how future complex capabilities should reference GitHub projects by adapting models and flows instead of copying another scaffold wholesale
+- `scripts/campus_smoke.ps1` and `scripts/campus_smoke.bat` provide a repeatable MVP API smoke entry for student, teacher, and leader demo accounts
 - each V1 area has local backend and frontend landing zones
 - V1 acceptance criteria are defined by role and by portal behavior
 - V1 mapper XML, menu seed data, and frontend build verification are now explicit
 - the plan keeps core RuoYi modules out of default write scope
 - `docs/ai/README.md` points to the reuse matrix, V1 delivery plan, MVP scope, and reference implementation strategy
 - `.ai` task artifacts now describe a specific V1 large-mode task instead of a generic planning task
+- `scripts/campus_smoke.ps1 -Help` was executed successfully as a script-level verification
+- `scripts/campus_smoke.ps1` parsed successfully through the PowerShell language parser
 
 ## Remaining Risks
 
 - runtime smoke used an isolated local MySQL instance on port `3307`, not the existing MySQL service on `3306`
 - captcha was disabled in runtime cache for automated smoke; production/default captcha behavior still needs manual captcha validation if kept enabled
+- `scripts/campus_smoke.ps1` assumes the backend is already running and captcha is disabled for automation; it does not start MySQL, Redis, or Spring Boot
+- full `scripts/campus_smoke.ps1` API execution was not rerun after adding the script because `127.0.0.1:8081` was not listening during this documentation/code hardening step
 - browser smoke was performed for the student UI path; teacher and leader were verified through authenticated APIs and route data
 - stack mismatch between references and the current scaffold
 - hidden external integration requirements if supposed V1 data is not locally available
