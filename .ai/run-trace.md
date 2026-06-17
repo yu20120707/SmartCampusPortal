@@ -83,6 +83,18 @@ Record key commands, important outputs, and notable failures.
 - Runtime API smoke: student dropped section `103`; selected count returned to `0`; available count returned to `1`.
 - Safety boundary: smoke restored the selected course state after testing.
 
+## 2026-06-17 Teacher Score Slice
+
+- Added lightweight teacher-side score list and save APIs to existing `com.ruoyi.campus.academic` and the teacher academic page.
+- Verification passed:
+- `mvn clean install -pl ruoyi-admin -am -DskipTests`
+- `NODE_OPTIONS=--openssl-legacy-provider npm run build:prod`
+- XML parse for `CampusAcademicMapper.xml`
+- Runtime API smoke: teacher listed section `100` scores and received `2` rows.
+- Runtime API smoke: teacher updated student `100` score from `91.5` to `92.5`; grade point returned `4.0`.
+- Runtime API smoke: teacher restored student `100` score to `91.5`.
+- Safety boundary: smoke restored the sample score after testing.
+
 ## Notable Small Blocks
 
 - Local backend process on `8081` locked `ruoyi-admin/target/ruoyi-admin.jar`, causing `mvn clean` to fail deleting the jar. Resolution: stop the Java process before rebuilding.

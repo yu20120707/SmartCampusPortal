@@ -1,5 +1,6 @@
 package com.ruoyi.campus.academic.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,6 +78,34 @@ public class CampusAcademicServiceImpl implements ICampusAcademicService
     }
 
     @Override
+    public List<CampusScore> selectTeachingScores(Long sectionId, Long userId)
+    {
+        assertTeacherSection(sectionId, userId);
+        return campusAcademicMapper.selectTeacherSectionScores(userId, sectionId);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int saveTeachingScore(Long sectionId, Long studentId, CampusScore score, Long userId)
+    {
+        assertTeacherSection(sectionId, userId);
+        if (campusAcademicMapper.countSectionStudent(sectionId, studentId) == 0)
+        {
+            throw new ServiceException("该学生不在当前教学班");
+        }
+        validateScore(score);
+        score.setSectionId(sectionId);
+        score.setStudentId(studentId);
+        score.setGradePoint(toGradePoint(score.getScore()));
+        if (score.getExamType() == null || score.getExamType().trim().isEmpty())
+        {
+            score.setExamType("期末");
+        }
+        int rows = campusAcademicMapper.updateStudentScore(score);
+        return rows > 0 ? rows : campusAcademicMapper.insertStudentScore(score);
+    }
+
+    @Override
     public List<CampusCourseSection> selectAvailableSections(Long userId)
     {
         getStudentId(userId);
@@ -124,5 +153,50 @@ public class CampusAcademicServiceImpl implements ICampusAcademicService
             throw new ServiceException("未找到当前学生档案");
         }
         return studentId;
+    }
+
+    private void assertTeacherSection(Long sectionId, Long userId)
+    {
+        if (sectionId == null)
+        {
+            throw new ServiceException("教学班不能为空");
+        }
+        if (campusAcademicMapper.countTeacherSection(userId, sectionId) == 0)
+        {
+            throw new ServiceException("教学班不存在或不属于当前教师");
+        }
+    }
+
+    private void validateScore(CampusScore score)
+    {
+        if (score == null || score.getScore() == null)
+        {
+            throw new ServiceException("成绩不能为空");
+        }
+        if (score.getScore().compareTo(BigDecimal.ZERO) < 0 || score.getScore().compareTo(new BigDecimal("100")) > 0)
+        {
+            throw new ServiceException("成绩必须在0到100之间");
+        }
+    }
+
+    private BigDecimal toGradePoint(BigDecimal score)
+    {
+        if (score.compareTo(new BigDecimal("90")) >= 0)
+        {
+            return new BigDecimal("4.0");
+        }
+        if (score.compareTo(new BigDecimal("80")) >= 0)
+        {
+            return new BigDecimal("3.0");
+        }
+        if (score.compareTo(new BigDecimal("70")) >= 0)
+        {
+            return new BigDecimal("2.0");
+        }
+        if (score.compareTo(new BigDecimal("60")) >= 0)
+        {
+            return new BigDecimal("1.0");
+        }
+        return BigDecimal.ZERO;
     }
 }

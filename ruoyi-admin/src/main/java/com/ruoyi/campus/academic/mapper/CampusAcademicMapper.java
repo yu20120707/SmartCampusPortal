@@ -31,6 +31,16 @@ public interface CampusAcademicMapper
 
     List<CampusExam> selectTeacherExams(@Param("userId") Long userId);
 
+    List<CampusScore> selectTeacherSectionScores(@Param("userId") Long userId, @Param("sectionId") Long sectionId);
+
+    int countTeacherSection(@Param("userId") Long userId, @Param("sectionId") Long sectionId);
+
+    int countSectionStudent(@Param("sectionId") Long sectionId, @Param("studentId") Long studentId);
+
+    int updateStudentScore(CampusScore score);
+
+    int insertStudentScore(CampusScore score);
+
     Long selectStudentIdByUserId(@Param("userId") Long userId);
 
     int countCurrentSection(@Param("sectionId") Long sectionId);

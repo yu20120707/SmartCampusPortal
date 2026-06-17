@@ -56,13 +56,37 @@
         <el-table-column prop="termName" label="学期" width="130" />
         <el-table-column prop="weekRange" label="周次" width="120" />
         <el-table-column prop="studentCount" label="选课人数" width="100" />
+        <el-table-column label="操作" width="100" fixed="right">
+          <template slot-scope="scope">
+            <el-button size="mini" type="text" @click="openScoreDialog(scope.row)">成绩</el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </el-card>
+
+    <el-dialog :title="scoreDialogTitle" :visible.sync="scoreDialogVisible" width="760px">
+      <el-table v-loading="scoreLoading" :data="scoreRows" size="small">
+        <el-table-column prop="studentNo" label="学号" width="110" />
+        <el-table-column prop="studentName" label="姓名" width="100" />
+        <el-table-column prop="examType" label="类型" width="100" />
+        <el-table-column label="成绩" width="150">
+          <template slot-scope="scope">
+            <el-input-number v-model="scope.row.score" :min="0" :max="100" :precision="1" size="mini" />
+          </template>
+        </el-table-column>
+        <el-table-column prop="gradePoint" label="绩点" width="90" />
+        <el-table-column label="操作" width="90" fixed="right">
+          <template slot-scope="scope">
+            <el-button size="mini" type="primary" @click="saveScore(scope.row)">保存</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { getTeacherProfile, listTeachingCourses, listTeachingSchedule, listTeachingExams } from '@/api/campus/academic'
+import { getTeacherProfile, listTeachingCourses, listTeachingSchedule, listTeachingExams, listTeachingScores, saveTeachingScore } from '@/api/campus/academic'
 
 export default {
   name: 'CampusAcademicTeacher',
@@ -72,7 +96,16 @@ export default {
       profile: null,
       courses: [],
       schedule: [],
-      exams: []
+      exams: [],
+      scoreLoading: false,
+      scoreDialogVisible: false,
+      currentCourse: null,
+      scoreRows: []
+    }
+  },
+  computed: {
+    scoreDialogTitle() {
+      return this.currentCourse ? `成绩录入 - ${this.currentCourse.courseName}` : '成绩录入'
     }
   },
   created() {
@@ -94,6 +127,29 @@ export default {
         this.loading = false
       }).catch(() => {
         this.loading = false
+      })
+    },
+    openScoreDialog(row) {
+      this.currentCourse = row
+      this.scoreDialogVisible = true
+      this.scoreLoading = true
+      listTeachingScores(row.sectionId).then(response => {
+        this.scoreRows = (response.data || []).map(item => ({
+          ...item,
+          examType: item.examType || '期末'
+        }))
+        this.scoreLoading = false
+      }).catch(() => {
+        this.scoreLoading = false
+      })
+    },
+    saveScore(row) {
+      saveTeachingScore(this.currentCourse.sectionId, row.studentId, {
+        score: row.score,
+        examType: row.examType || '期末'
+      }).then(() => {
+        this.$modal.msgSuccess('成绩已保存')
+        this.openScoreDialog(this.currentCourse)
       })
     }
   }

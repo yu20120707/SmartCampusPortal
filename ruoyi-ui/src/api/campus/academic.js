@@ -83,3 +83,18 @@ export function listTeachingExams() {
     method: 'get'
   })
 }
+
+export function listTeachingScores(sectionId) {
+  return request({
+    url: `/campus/academic/teacher/sections/${sectionId}/scores`,
+    method: 'get'
+  })
+}
+
+export function saveTeachingScore(sectionId, studentId, data) {
+  return request({
+    url: `/campus/academic/teacher/sections/${sectionId}/students/${studentId}/score`,
+    method: 'put',
+    data
+  })
+}

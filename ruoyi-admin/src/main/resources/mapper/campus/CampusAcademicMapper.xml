@@ -43,6 +43,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <resultMap type="CampusScore" id="CampusScoreResult">
         <result property="scoreId" column="score_id" />
+        <result property="studentId" column="student_id" />
+        <result property="studentNo" column="student_no" />
+        <result property="studentName" column="student_name" />
         <result property="sectionId" column="section_id" />
         <result property="courseName" column="course_name" />
         <result property="termName" column="term_name" />
@@ -295,4 +298,60 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where t.user_id = #{userId}
         order by e.exam_time
     </select>
+
+    <select id="selectTeacherSectionScores" resultMap="CampusScoreResult">
+        select
+            score.score_id,
+            stu.student_id,
+            stu.student_no,
+            stu.student_name,
+            s.section_id,
+            c.course_name,
+            term.term_name,
+            c.credit,
+            score.score,
+            score.grade_point,
+            coalesce(score.exam_type, '期末') as exam_type
+        from campus_student_course sc
+            inner join campus_student stu on stu.student_id = sc.student_id
+            inner join campus_course_section s on s.section_id = sc.section_id
+            inner join campus_course c on c.course_id = s.course_id
+            inner join campus_teacher t on t.teacher_id = s.teacher_id
+            inner join campus_term term on term.term_id = s.term_id
+            left join campus_score score on score.student_id = stu.student_id and score.section_id = s.section_id
+        where t.user_id = #{userId}
+          and s.section_id = #{sectionId}
+          and sc.status = '0'
+        order by stu.student_no
+    </select>
+
+    <select id="countTeacherSection" resultType="int">
+        select count(1)
+        from campus_course_section s
+            inner join campus_teacher t on t.teacher_id = s.teacher_id
+        where t.user_id = #{userId}
+          and s.section_id = #{sectionId}
+    </select>
+
+    <select id="countSectionStudent" resultType="int">
+        select count(1)
+        from campus_student_course
+        where section_id = #{sectionId}
+          and student_id = #{studentId}
+          and status = '0'
+    </select>
+
+    <update id="updateStudentScore" parameterType="CampusScore">
+        update campus_score
+        set score = #{score},
+            grade_point = #{gradePoint},
+            exam_type = #{examType}
+        where student_id = #{studentId}
+          and section_id = #{sectionId}
+    </update>
+
+    <insert id="insertStudentScore" parameterType="CampusScore">
+        insert into campus_score(student_id, section_id, score, grade_point, exam_type)
+        values(#{studentId}, #{sectionId}, #{score}, #{gradePoint}, #{examType})
+    </insert>
 </mapper>

@@ -6,8 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.ruoyi.campus.academic.domain.CampusScore;
 import com.ruoyi.campus.academic.service.ICampusAcademicService;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
@@ -104,5 +107,20 @@ public class CampusAcademicController extends BaseController
     public AjaxResult teachingExams()
     {
         return success(campusAcademicService.selectMyTeachingExams(getUserId()));
+    }
+
+    @PreAuthorize("@ss.hasPermi('campus:teacher:view')")
+    @GetMapping("/teacher/sections/{sectionId}/scores")
+    public AjaxResult teachingScores(@PathVariable Long sectionId)
+    {
+        return success(campusAcademicService.selectTeachingScores(sectionId, getUserId()));
+    }
+
+    @PreAuthorize("@ss.hasPermi('campus:teacher:view')")
+    @PutMapping("/teacher/sections/{sectionId}/students/{studentId}/score")
+    public AjaxResult saveTeachingScore(@PathVariable Long sectionId, @PathVariable Long studentId,
+            @RequestBody CampusScore score)
+    {
+        return toAjax(campusAcademicService.saveTeachingScore(sectionId, studentId, score, getUserId()));
     }
 }

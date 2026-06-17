@@ -30,6 +30,10 @@ public interface ICampusAcademicService
 
     List<CampusExam> selectMyTeachingExams(Long userId);
 
+    List<CampusScore> selectTeachingScores(Long sectionId, Long userId);
+
+    int saveTeachingScore(Long sectionId, Long studentId, CampusScore score, Long userId);
+
     List<CampusCourseSection> selectAvailableSections(Long userId);
 
     int enrollSection(Long sectionId, Long userId);
