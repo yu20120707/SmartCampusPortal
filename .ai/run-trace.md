@@ -59,9 +59,23 @@ Record key commands, important outputs, and notable failures.
 - Runtime API smoke counts: `operationCards=4`, `approvalStats=4`, `paymentStats=3`, `cardTransactionStats=2`, `assetStats=3`.
 - Representative runtime values: pending applications `1`, pending asset approvals `1`, unpaid amount `1200.0`, today card transactions `2`.
 
+## 2026-06-17 Student Affairs Slice
+
+- Added `campus_v2_student.sql`, backend `com.ruoyi.campus.student`, mapper XML, frontend API, and `views/campus/student`.
+- Verification passed:
+- `mvn clean install -pl ruoyi-admin -am -DskipTests`
+- `NODE_OPTIONS=--openssl-legacy-provider npm run build:prod`
+- XML parse for `CampusStudentAffairsMapper.xml`
+- SQL import on isolated MySQL `127.0.0.1:3307`: 3 profiles, 4 records, and 4 menus.
+- Runtime API smoke: student profile returned `陈一一`; student records returned `2`.
+- Runtime API smoke: leader overview returned `3` profiles and `3` record stat groups.
+- Route smoke: student saw `campus/student/my`; leader saw `campus/student/overview`.
+
 ## Notable Small Blocks
 
 - Local backend process on `8081` locked `ruoyi-admin/target/ruoyi-admin.jar`, causing `mvn clean` to fail deleting the jar. Resolution: stop the Java process before rebuilding.
 - Redis Windows/MSYS binary failed when passed an absolute Windows config path because it interpreted the path as `/cygdrive/.../F:\...`. Resolution: start Redis with inline command-line options instead of a config path for smoke runs.
 - PowerShell `Invoke-RestMethod`/`curl.exe` JSON quoting produced misleading login timeouts and URL parsing errors. Resolution: pass JSON via stdin using `--data-binary @-` and quote `@-` in PowerShell.
+- MySQL CLI on PowerShell misread `-h127.0.0.1` as host `127`; use `--host=127.0.0.1 --port=3307` instead.
+- MySQL `source` did not work via `-e`; pipe SQL to mysql stdin for non-interactive imports.
 - Runtime smoke disables captcha through Redis key `sys_config:sys.account.captchaEnabled=false`; production/default captcha still needs manual validation if captcha remains enabled.

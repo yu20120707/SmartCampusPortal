@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.campus.student.mapper.CampusStudentAffairsMapper">
+
+    <resultMap type="CampusStudentAffairsProfile" id="CampusStudentAffairsProfileResult">
+        <result property="profileId" column="profile_id" />
+        <result property="studentId" column="student_id" />
+        <result property="userId" column="user_id" />
+        <result property="studentNo" column="student_no" />
+        <result property="studentName" column="student_name" />
+        <result property="collegeName" column="college_name" />
+        <result property="majorName" column="major_name" />
+        <result property="className" column="class_name" />
+        <result property="grade" column="grade" />
+        <result property="counselorName" column="counselor_name" />
+        <result property="politicalStatus" column="political_status" />
+        <result property="dormitory" column="dormitory" />
+        <result property="emergencyContact" column="emergency_contact" />
+        <result property="emergencyPhone" column="emergency_phone" />
+        <result property="statusSummary" column="status_summary" />
+    </resultMap>
+
+    <resultMap type="CampusStudentAffairsRecord" id="CampusStudentAffairsRecordResult">
+        <result property="recordId" column="record_id" />
+        <result property="studentId" column="student_id" />
+        <result property="studentNo" column="student_no" />
+        <result property="studentName" column="student_name" />
+        <result property="recordType" column="record_type" />
+        <result property="title" column="title" />
+        <result property="levelName" column="level_name" />
+        <result property="recordDate" column="record_date" />
+        <result property="status" column="status" />
+    </resultMap>
+
+    <sql id="profileColumns">
+        p.profile_id,
+        stu.student_id,
+        stu.user_id,
+        stu.student_no,
+        stu.student_name,
+        stu.college_name,
+        stu.major_name,
+        stu.class_name,
+        stu.grade,
+        p.counselor_name,
+        p.political_status,
+        p.dormitory,
+        p.emergency_contact,
+        p.emergency_phone,
+        p.status_summary
+    </sql>
+
+    <sql id="recordColumns">
+        r.record_id,
+        stu.student_id,
+        stu.student_no,
+        stu.student_name,
+        r.record_type,
+        r.title,
+        r.level_name,
+        r.record_date,
+        r.status
+    </sql>
+
+    <select id="selectProfileByUserId" parameterType="Long" resultMap="CampusStudentAffairsProfileResult">
+        select
+            <include refid="profileColumns" />
+        from campus_student_affairs_profile p
+            inner join campus_student stu on stu.student_id = p.student_id
+        where stu.user_id = #{userId}
+          and stu.status = '0'
+        limit 1
+    </select>
+
+    <select id="selectRecordsByUserId" parameterType="Long" resultMap="CampusStudentAffairsRecordResult">
+        select
+            <include refid="recordColumns" />
+        from campus_student_affairs_record r
+            inner join campus_student stu on stu.student_id = r.student_id
+        where stu.user_id = #{userId}
+        order by r.record_date desc, r.record_id desc
+    </select>
+
+    <select id="selectProfileList" resultMap="CampusStudentAffairsProfileResult">
+        select
+            <include refid="profileColumns" />
+        from campus_student_affairs_profile p
+            inner join campus_student stu on stu.student_id = p.student_id
+        where stu.status = '0'
+        order by stu.grade desc, stu.class_name, stu.student_no
+    </select>
+
+    <select id="selectRecordStats" resultType="map">
+        select
+            case record_type
+                when 'honor' then '荣誉'
+                when 'aid' then '资助'
+                when 'discipline' then '处分'
+                when 'practice' then '实践'
+                else record_type
+            end as name,
+            count(*) as value
+        from campus_student_affairs_record
+        group by record_type
+        order by value desc
+    </select>
+</mapper>
