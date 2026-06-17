@@ -36,9 +36,10 @@
 1. add lightweight OA application workflow for submit, todo, approve, and reject
 2. add lightweight campus card account workflow for balance, ledger, and demo recharge
 3. add lightweight payment center workflow for pending items, payment records, and demo payment
-4. keep all slices inside `campus/**` backend/frontend boundaries
-5. defer real Flowable orchestration and real payment/card gateway integration until external integration decisions exist
-6. verify every slice with backend compile, frontend build, XML parse, and at least one authenticated API smoke path
+4. add lightweight asset borrow workflow for available assets, borrow application, and leader approval
+5. keep all slices inside `campus/**` backend/frontend boundaries
+6. defer real Flowable orchestration, real payment/card gateway integration, and full asset lifecycle management until external integration decisions exist
+7. verify every slice with backend compile, frontend build, XML parse, and at least one authenticated API smoke path
 
 ## Escalation Rules
 
@@ -47,3 +48,4 @@
 - escalate if leader metrics require data not available from the agreed V1 tables
 - escalate if campus card or payment moves from internal demo ledger to real money or third-party callbacks
 - escalate if OA moves from single-step approval to multi-level process modeling or Flowable integration
+- escalate if asset management moves from borrow approval into procurement, depreciation, audit, repair, or return lifecycle management

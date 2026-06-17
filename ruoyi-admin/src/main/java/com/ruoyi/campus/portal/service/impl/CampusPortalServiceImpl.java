@@ -117,17 +117,20 @@ public class CampusPortalServiceImpl implements ICampusPortalService
             shortcuts.add(shortcut("我的申请", "/campus/office/my"));
             shortcuts.add(shortcut("一卡通", "/campus/card"));
             shortcuts.add(shortcut("缴费中心", "/campus/payment"));
+            shortcuts.add(shortcut("资产借用", "/campus/asset/index"));
         }
         if ("teacher".equals(roleType))
         {
             shortcuts.add(shortcut("任课视图", "/campus/academic/teacher"));
             shortcuts.add(shortcut("我的申请", "/campus/office/my"));
             shortcuts.add(shortcut("一卡通", "/campus/card"));
+            shortcuts.add(shortcut("资产借用", "/campus/asset/index"));
         }
         if ("leader".equals(roleType) || "admin".equals(roleType))
         {
             shortcuts.add(shortcut("领导驾驶舱", "/campus/dashboard"));
             shortcuts.add(shortcut("审批待办", "/campus/office/todo"));
+            shortcuts.add(shortcut("资产审批", "/campus/asset/todo"));
         }
         return shortcuts;
     }

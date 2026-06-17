@@ -38,6 +38,16 @@ Record key commands, important outputs, and notable failures.
 - Runtime API smoke: student paid `英语四级报名费` for `30.00`; pending count changed from `2` to `1`; record count changed from `1` to `2`.
 - Security boundary: amount is read from the database-side pending item, not accepted from the frontend request.
 
+## 2026-06-17 Asset Borrow Slice
+
+- Added `campus_v2_asset.sql`, backend `com.ruoyi.campus.asset`, mapper XML, frontend API, and `views/campus/asset`.
+- Verification passed:
+- `mvn clean install -pl ruoyi-admin -am -DskipTests`
+- `NODE_OPTIONS=--openssl-legacy-provider npm run build:prod`
+- XML parse for `CampusAssetMapper.xml`
+- Runtime API smoke: student applied to borrow `移动投影仪`; leader approved borrow `102`; status returned `2`; available quantity changed from `2` to `1`.
+- Security boundary: applicant identity comes from login state; approval locks pending borrow and decrements server-side asset stock only on approval.
+
 ## Notable Small Blocks
 
 - Local backend process on `8081` locked `ruoyi-admin/target/ruoyi-admin.jar`, causing `mvn clean` to fail deleting the jar. Resolution: stop the Java process before rebuilding.

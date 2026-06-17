@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.campus.asset.mapper.CampusAssetMapper">
+
+    <resultMap type="CampusAsset" id="CampusAssetResult">
+        <result property="assetId" column="asset_id" />
+        <result property="assetNo" column="asset_no" />
+        <result property="assetName" column="asset_name" />
+        <result property="assetType" column="asset_type" />
+        <result property="location" column="location" />
+        <result property="totalQuantity" column="total_quantity" />
+        <result property="availableQuantity" column="available_quantity" />
+        <result property="status" column="status" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="remark" column="remark" />
+    </resultMap>
+
+    <resultMap type="CampusAssetBorrow" id="CampusAssetBorrowResult">
+        <result property="borrowId" column="borrow_id" />
+        <result property="assetId" column="asset_id" />
+        <result property="assetNo" column="asset_no" />
+        <result property="assetName" column="asset_name" />
+        <result property="applicantUserId" column="applicant_user_id" />
+        <result property="applicantName" column="applicant_name" />
+        <result property="purpose" column="purpose" />
+        <result property="status" column="status" />
+        <result property="approverUserId" column="approver_user_id" />
+        <result property="approverName" column="approver_name" />
+        <result property="reviewComment" column="review_comment" />
+        <result property="applyTime" column="apply_time" />
+        <result property="reviewTime" column="review_time" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="remark" column="remark" />
+    </resultMap>
+
+    <sql id="assetColumns">
+        asset_id, asset_no, asset_name, asset_type, location, total_quantity, available_quantity, status,
+        create_by, create_time, update_by, update_time, remark
+    </sql>
+
+    <sql id="borrowColumns">
+        b.borrow_id, b.asset_id, a.asset_no, a.asset_name, b.applicant_user_id, b.applicant_name,
+        b.purpose, b.status, b.approver_user_id, b.approver_name, b.review_comment, b.apply_time,
+        b.review_time, b.create_by, b.create_time, b.update_by, b.update_time, b.remark
+    </sql>
+
+    <select id="selectAvailableAssets" resultMap="CampusAssetResult">
+        select <include refid="assetColumns" />
+        from campus_asset
+        where status = '0'
+          and available_quantity > 0
+        order by asset_type, asset_name, asset_id
+    </select>
+
+    <select id="selectAvailableAssetForUpdate" resultMap="CampusAssetResult">
+        select <include refid="assetColumns" />
+        from campus_asset
+        where asset_id = #{assetId}
+          and status = '0'
+          and available_quantity > 0
+        for update
+    </select>
+
+    <select id="selectPendingBorrowForUpdate" resultMap="CampusAssetBorrowResult">
+        select <include refid="borrowColumns" />
+        from campus_asset_borrow b
+            inner join campus_asset a on a.asset_id = b.asset_id
+        where b.borrow_id = #{borrowId}
+          and b.status = '1'
+        for update
+    </select>
+
+    <select id="selectMyBorrows" resultMap="CampusAssetBorrowResult">
+        select <include refid="borrowColumns" />
+        from campus_asset_borrow b
+            inner join campus_asset a on a.asset_id = b.asset_id
+        where b.applicant_user_id = #{userId}
+        order by b.apply_time desc, b.borrow_id desc
+    </select>
+
+    <select id="selectTodoBorrows" resultMap="CampusAssetBorrowResult">
+        select <include refid="borrowColumns" />
+        from campus_asset_borrow b
+            inner join campus_asset a on a.asset_id = b.asset_id
+        where b.status = '1'
+        order by b.apply_time, b.borrow_id
+    </select>
+
+    <insert id="insertBorrow" parameterType="CampusAssetBorrow" useGeneratedKeys="true" keyProperty="borrowId">
+        insert into campus_asset_borrow(
+            asset_id, applicant_user_id, applicant_name, purpose, status, apply_time,
+            create_by, create_time, remark
+        ) values (
+            #{assetId}, #{applicantUserId}, #{applicantName}, #{purpose}, #{status}, #{applyTime},
+            #{createBy}, sysdate(), #{remark}
+        )
+    </insert>
+
+    <update id="decreaseAvailableQuantity">
+        update campus_asset
+        set available_quantity = available_quantity - 1,
+            update_by = #{updateBy},
+            update_time = sysdate()
+        where asset_id = #{assetId}
+          and status = '0'
+          and available_quantity > 0
+    </update>
+
+    <update id="approveBorrow">
+        update campus_asset_borrow
+        set status = '2',
+            approver_user_id = #{approverUserId},
+            approver_name = #{approverName},
+            review_comment = #{reviewComment},
+            review_time = sysdate(),
+            update_by = #{approverName},
+            update_time = sysdate()
+        where borrow_id = #{borrowId}
+          and status = '1'
+    </update>
+
+    <update id="rejectBorrow">
+        update campus_asset_borrow
+        set status = '3',
+            approver_user_id = #{approverUserId},
+            approver_name = #{approverName},
+            review_comment = #{reviewComment},
+            review_time = sysdate(),
+            update_by = #{approverName},
+            update_time = sysdate()
+        where borrow_id = #{borrowId}
+          and status = '1'
+    </update>
+</mapper>
