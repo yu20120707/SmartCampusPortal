@@ -2,6 +2,8 @@ package com.ruoyi.campus.dashboard.service.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.ruoyi.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.campus.dashboard.mapper.CampusDashboardMapper;
@@ -25,7 +27,7 @@ public class CampusDashboardServiceImpl implements ICampusDashboardService
         dashboard.put("collegeStudentStats", campusDashboardMapper.selectCollegeStudentStats());
         dashboard.put("scoreTrend", campusDashboardMapper.selectScoreTrend());
         dashboard.put("operationCards", campusDashboardMapper.selectOperationCards());
-        dashboard.put("approvalStats", campusDashboardMapper.selectApprovalStats());
+        dashboard.put("approvalStats", campusDashboardMapper.selectApprovalStats(SecurityUtils.getUserId()));
         dashboard.put("paymentStats", campusDashboardMapper.selectPaymentStats());
         dashboard.put("cardTransactionStats", campusDashboardMapper.selectCardTransactionStats());
         dashboard.put("assetStats", campusDashboardMapper.selectAssetStats());

@@ -64,6 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select 'OA待审批' as name, count(*) as value
         from campus_application
         where status = '1'
+        and approver_user_id = #{userId}
         union all
         select '资产待审批' as name, count(*) as value
         from campus_asset_borrow
@@ -72,6 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select 'OA已通过' as name, count(*) as value
         from campus_application
         where status = '2'
+        and approver_user_id = #{userId}
         union all
         select '资产已通过' as name, count(*) as value
         from campus_asset_borrow
