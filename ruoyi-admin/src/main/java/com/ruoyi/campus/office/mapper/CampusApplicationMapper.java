@@ -13,7 +13,7 @@ public interface CampusApplicationMapper
 
     List<CampusApplication> selectMyApplications(@Param("userId") Long userId);
 
-    List<CampusApplication> selectTodoApplications();
+    List<CampusApplication> selectTodoApplications(Long userId);
 
     int insertApplication(CampusApplication application);
 

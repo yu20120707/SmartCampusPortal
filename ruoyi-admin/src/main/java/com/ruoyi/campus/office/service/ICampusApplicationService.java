@@ -2,6 +2,7 @@ package com.ruoyi.campus.office.service;
 
 import java.util.List;
 import com.ruoyi.campus.office.domain.CampusApplication;
+import com.ruoyi.common.core.domain.entity.SysUser;
 
 /**
  * 校园申请服务
@@ -19,4 +20,6 @@ public interface ICampusApplicationService
     int approveApplication(Long applicationId, Long approverUserId, String approverName, String reviewComment);
 
     int rejectApplication(Long applicationId, Long approverUserId, String approverName, String reviewComment);
+
+    List<SysUser> selectLeaders();
 }

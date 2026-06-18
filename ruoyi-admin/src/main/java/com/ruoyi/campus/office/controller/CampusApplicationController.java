@@ -2,13 +2,7 @@ package com.ruoyi.campus.office.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.campus.office.domain.CampusApplication;
 import com.ruoyi.campus.office.service.ICampusApplicationService;
 import com.ruoyi.common.core.controller.BaseController;
@@ -33,9 +27,9 @@ public class CampusApplicationController extends BaseController
 
     @PreAuthorize("@ss.hasPermi('campus:office:apply')")
     @PostMapping
-    public AjaxResult add(@RequestBody CampusApplication application)
+    public AjaxResult add(@RequestBody CampusApplication application, @RequestParam Long receiverUserId, @RequestParam String receiverName)
     {
-        return toAjax(campusApplicationService.insertApplication(application, getUserId(), getUsername()));
+        return toAjax(campusApplicationService.insertApplication(application, receiverUserId, receiverName));
     }
 
     @PreAuthorize("@ss.hasPermi('campus:office:apply')")
@@ -67,4 +61,12 @@ public class CampusApplicationController extends BaseController
         return toAjax(campusApplicationService.rejectApplication(applicationId, getUserId(), getUsername(),
                 application.getReviewComment()));
     }
+
+    @PreAuthorize("@ss.hasPermi('campus:office:approve')")
+    @GetMapping("/leaders")
+    public AjaxResult leaders()
+    {
+        return success(campusApplicationService.selectLeaders());
+    }
+
 }

@@ -214,4 +214,11 @@ public interface ISysUserService
      * @return 结果
      */
     public String importUser(List<SysUser> userList, Boolean isUpdateSupport, String operName);
+
+    /**
+     * 查询用户所属角色组
+     *
+     * @return 结果
+     */
+    List<SysUser> selectLeaderList();
 }
