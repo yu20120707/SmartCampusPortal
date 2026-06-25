@@ -37,3 +37,10 @@ export function rejectApplication(applicationId, data) {
     data: data
   })
 }
+
+export function getLeaders() {
+  return request({
+    url: '/campus/office/applications/leaders',
+    method: 'get'
+  })
+}

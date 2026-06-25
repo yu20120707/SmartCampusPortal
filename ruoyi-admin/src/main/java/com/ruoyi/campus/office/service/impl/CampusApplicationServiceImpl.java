@@ -3,10 +3,8 @@ package com.ruoyi.campus.office.service.impl;
 import java.util.Date;
 import java.util.List;
 
-import com.ruoyi.common.api.system.SysUserApi;
 import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.enums.StatusType;
-import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.campus.office.domain.CampusApplication;
@@ -30,9 +28,6 @@ public class CampusApplicationServiceImpl implements ICampusApplicationService
     @Autowired
     private CampusApplicationMapper campusApplicationMapper;
 
-    @Resource
-    private SysUserApi sysUserApi;
-
     @Override
     public List<CampusApplication> selectMyApplications(Long userId)
     {
@@ -48,6 +43,8 @@ public class CampusApplicationServiceImpl implements ICampusApplicationService
     @Override
     public int insertApplication(CampusApplication application)
     {
+        System.out.println("[insertApplication] 收到审批人ID: " + application.getApproverUserId());
+        System.out.println("[insertApplication] 收到审批人名称: " + application.getApproverName());
         validateApplication(application);
         application.setApplicationNo("APP" + IdUtils.fastSimpleUUID().substring(0, 16).toUpperCase());
         application.setApplicantUserId(SecurityUtils.getUserId());
@@ -56,6 +53,23 @@ public class CampusApplicationServiceImpl implements ICampusApplicationService
         application.setStatus(StatusType.ING.getCode());
         application.setSubmitTime(new Date());
         application.setCreateBy(SecurityUtils.getUsername());
+        // 如果未传审批人名称但有审批人ID，则解析名称
+        if (application.getApproverUserId() != null && StringUtils.isEmpty(application.getApproverName()))
+        {
+            System.out.println("[insertApplication] 开始解析审批人名称，approverUserId=" + application.getApproverUserId());
+            List<SysUser> approvers = campusApplicationMapper.selectApprovers();
+            System.out.println("[insertApplication] 可选审批人数: " + (approvers != null ? approvers.size() : 0));
+            for (SysUser approver : approvers)
+            {
+                if (approver.getUserId().equals(application.getApproverUserId()))
+                {
+                    application.setApproverName(approver.getUserName());
+                    System.out.println("[insertApplication] 匹配到审批人: " + approver.getUserName());
+                    break;
+                }
+            }
+        }
+        System.out.println("[insertApplication] 最终保存: approverUserId=" + application.getApproverUserId() + ", approverName=" + application.getApproverName());
         return campusApplicationMapper.insertApplication(application);
     }
 
@@ -84,7 +98,7 @@ public class CampusApplicationServiceImpl implements ICampusApplicationService
 
     @Override
     public List<SysUser> selectLeaders() {
-        return sysUserApi.selectLeaderList();
+        return campusApplicationMapper.selectApprovers();
     }
 
     private int review(Long applicationId, Long approverUserId, String approverName, String reviewComment, boolean approved)

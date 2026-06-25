@@ -80,6 +80,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             applicant_name,
             applicant_role,
             status,
+            approver_user_id,
+            approver_name,
             submit_time,
             create_by,
             create_time,
@@ -95,6 +97,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{applicantName},
             #{applicantRole},
             #{status},
+            #{approverUserId},
+            #{approverName},
             #{submitTime},
             #{createBy},
             sysdate(),
@@ -137,4 +141,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where application_id = #{applicationId}
           and status = '1'
     </update>
+
+    <resultMap type="SysUser" id="SysUserBriefResult">
+        <id     property="userId"   column="user_id"   />
+        <result property="userName" column="user_name" />
+        <result property="nickName" column="nick_name" />
+    </resultMap>
+
+    <select id="selectApprovers" resultMap="SysUserBriefResult">
+        select distinct u.user_id, u.user_name, u.nick_name
+        from sys_user u
+        inner join sys_user_role ur on u.user_id = ur.user_id
+        where ur.role_id in (1, 111, 112)
+          and u.del_flag = '0'
+          and u.status = '0'
+    </select>
 </mapper>
