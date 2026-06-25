@@ -46,7 +46,7 @@ public class CampusApplicationServiceImpl implements ICampusApplicationService
     }
 
     @Override
-    public int insertApplication(CampusApplication application, Long receiverUserId, String receiverName)
+    public int insertApplication(CampusApplication application)
     {
         validateApplication(application);
         application.setApplicationNo("APP" + IdUtils.fastSimpleUUID().substring(0, 16).toUpperCase());
@@ -56,8 +56,6 @@ public class CampusApplicationServiceImpl implements ICampusApplicationService
         application.setStatus(StatusType.ING.getCode());
         application.setSubmitTime(new Date());
         application.setCreateBy(SecurityUtils.getUsername());
-        application.setApproverName(receiverName);
-        application.setApproverUserId(receiverUserId);
         return campusApplicationMapper.insertApplication(application);
     }
 

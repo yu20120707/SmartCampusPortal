@@ -27,9 +27,9 @@ public class CampusApplicationController extends BaseController
 
     @PreAuthorize("@ss.hasPermi('campus:office:apply')")
     @PostMapping
-    public AjaxResult add(@RequestBody CampusApplication application, @RequestParam Long receiverUserId, @RequestParam String receiverName)
+    public AjaxResult add(@RequestBody CampusApplication application)
     {
-        return toAjax(campusApplicationService.insertApplication(application, receiverUserId, receiverName));
+        return toAjax(campusApplicationService.insertApplication(application));
     }
 
     @PreAuthorize("@ss.hasPermi('campus:office:apply')")
