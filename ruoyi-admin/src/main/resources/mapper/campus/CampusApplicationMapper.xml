@@ -83,7 +83,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             submit_time,
             create_by,
             create_time,
-            remark
+            remark,
+            approver_user_id,
+            approver_name
         )
         values
         (
@@ -98,7 +100,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{submitTime},
             #{createBy},
             sysdate(),
-            #{remark}
+            #{remark},
+            #{approverUserId},
+            #{approverName}
         )
     </insert>
 

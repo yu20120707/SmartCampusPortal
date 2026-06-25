@@ -1,7 +1,6 @@
 package com.ruoyi.system.api;
 
-import com.ruoyi.common.api.system.SysUserApi;
-import com.ruoyi.common.core.domain.entity.SysUser;
+import com.ruoyi.system.domain.vo.SysUserVO;
 import com.ruoyi.system.service.ISysUserService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,7 @@ public class SysUserApiImpl implements SysUserApi {
     private ISysUserService sysUserService;
 
     @Override
-    public List<SysUser> selectLeaderList() {
+    public List<SysUserVO> selectLeaderList() {
         return sysUserService.selectLeaderList();
     }
 }

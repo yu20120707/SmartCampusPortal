@@ -3,9 +3,9 @@ package com.ruoyi.campus.office.service.impl;
 import java.util.Date;
 import java.util.List;
 
-import com.ruoyi.common.api.system.SysUserApi;
-import com.ruoyi.common.core.domain.entity.SysUser;
+import com.ruoyi.system.api.SysUserApi;
 import com.ruoyi.common.enums.StatusType;
+import com.ruoyi.system.domain.vo.SysUserVO;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,7 +83,7 @@ public class CampusApplicationServiceImpl implements ICampusApplicationService
     }
 
     @Override
-    public List<SysUser> selectLeaders() {
+    public List<SysUserVO> selectLeaders() {
         return sysUserApi.selectLeaderList();
     }
 
