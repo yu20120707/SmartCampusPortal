@@ -62,7 +62,7 @@ public class CampusApplicationController extends BaseController
                 application.getReviewComment()));
     }
 
-    @PreAuthorize("@ss.hasPermi('campus:office:approve')")
+    @PreAuthorize("@ss.hasPermi('campus:office:apply')")
     @GetMapping("/leaders")
     public AjaxResult leaders()
     {
