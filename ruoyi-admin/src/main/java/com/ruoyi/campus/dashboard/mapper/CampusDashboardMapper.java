@@ -18,7 +18,7 @@ public interface CampusDashboardMapper
 
     List<Map<String, Object>> selectOperationCards();
 
-    List<Map<String, Object>> selectApprovalStats();
+    List<Map<String, Object>> selectApprovalStats(Long userId);
 
     List<Map<String, Object>> selectPaymentStats();
 

@@ -2,6 +2,11 @@ package com.ruoyi.campus.office.service.impl;
 
 import java.util.Date;
 import java.util.List;
+
+import com.ruoyi.common.api.system.SysUserApi;
+import com.ruoyi.common.core.domain.entity.SysUser;
+import com.ruoyi.common.enums.StatusType;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.campus.office.domain.CampusApplication;
@@ -25,6 +30,9 @@ public class CampusApplicationServiceImpl implements ICampusApplicationService
     @Autowired
     private CampusApplicationMapper campusApplicationMapper;
 
+    @Resource
+    private SysUserApi sysUserApi;
+
     @Override
     public List<CampusApplication> selectMyApplications(Long userId)
     {
@@ -34,20 +42,20 @@ public class CampusApplicationServiceImpl implements ICampusApplicationService
     @Override
     public List<CampusApplication> selectTodoApplications()
     {
-        return campusApplicationMapper.selectTodoApplications();
+        return campusApplicationMapper.selectTodoApplications(SecurityUtils.getUserId());
     }
 
     @Override
-    public int insertApplication(CampusApplication application, Long userId, String username)
+    public int insertApplication(CampusApplication application)
     {
         validateApplication(application);
         application.setApplicationNo("APP" + IdUtils.fastSimpleUUID().substring(0, 16).toUpperCase());
-        application.setApplicantUserId(userId);
-        application.setApplicantName(username);
+        application.setApplicantUserId(SecurityUtils.getUserId());
+        application.setApplicantName(SecurityUtils.getUsername());
         application.setApplicantRole(resolveApplicantRole());
-        application.setStatus("1");
+        application.setStatus(StatusType.ING.getCode());
         application.setSubmitTime(new Date());
-        application.setCreateBy(username);
+        application.setCreateBy(SecurityUtils.getUsername());
         return campusApplicationMapper.insertApplication(application);
     }
 
@@ -72,6 +80,11 @@ public class CampusApplicationServiceImpl implements ICampusApplicationService
     public int rejectApplication(Long applicationId, Long approverUserId, String approverName, String reviewComment)
     {
         return review(applicationId, approverUserId, approverName, reviewComment, false);
+    }
+
+    @Override
+    public List<SysUser> selectLeaders() {
+        return sysUserApi.selectLeaderList();
     }
 
     private int review(Long applicationId, Long approverUserId, String approverName, String reviewComment, boolean approved)

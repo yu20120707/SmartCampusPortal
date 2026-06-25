@@ -144,4 +144,11 @@ public interface SysUserMapper
      * @return 结果
      */
     public SysUser checkEmailUnique(String email);
+
+    /**
+     * 查询leader用户
+     *
+     * @return 用户列表
+     */
+    List<SysUser> selectLeaderList(int code);
 }
