@@ -1,4 +1,15 @@
-// base color
+// ============================================
+// SmartCampusPortal Design Tokens
+// 统一品牌色：校园青绿，体现"教育+智慧"
+// ============================================
+
+// --- 品牌色 ---
+$brand-primary: #0D7C6B;
+$brand-primary-light: #1A9B85;
+$brand-primary-dark: #0A5C50;
+$brand-primary-pale: #E8F5F1;
+
+// --- 功能色（保留 Element UI 二级色，降低饱和度） ---
 $blue:#324157;
 $light-blue:#3A71A8;
 $red:#C03639;
@@ -8,7 +19,25 @@ $tiffany: #4AB7BD;
 $yellow:#FEC171;
 $panGreen: #30B08F;
 
-// 默认菜单主题风格
+// --- 页面背景 ---
+$page-bg: #f5f7fb;
+$page-min-height: calc(100vh - 84px);
+
+// --- 卡片 ---
+$card-bg: #ffffff;
+$card-border: #e8edf5;
+$card-radius: 8px;
+$card-gap: 16px;
+$card-shadow: 0 1px 3px rgba(13,124,107,.05), 0 1px 2px rgba(0,0,0,.04);
+
+// --- 文字层级 ---
+$text-primary: #1f2d3d;
+$text-regular: #303133;
+$text-secondary: #606266;
+$text-muted: #909399;
+$text-label: #7a869a;
+
+// --- 默认菜单主题风格 ---
 $base-menu-color: #bfcbd9;
 $base-menu-color-active: #ffffff;
 $base-menu-background: #1a1f2e;
@@ -23,6 +52,18 @@ $base-sub-menu-hover: rgba(255,255,255,.06);
 
 $base-sidebar-width: 200px;
 
+// ============================================
+// Mobile Design Tokens
+// ============================================
+$mobile-breakpoint: 991px;        // aligns with ResizeHandler.js WIDTH=992
+$mobile-small: 480px;
+$mobile-page-padding: 12px;
+$mobile-card-gap: 10px;
+$mobile-card-radius: 6px;
+$mobile-touch-min: 44px;          // WCAG minimum touch target
+$mobile-metric-font-size: 22px;
+$mobile-bottom-nav-height: 56px;
+
 // the :export directive is the magic sauce for webpack
 // https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
 :export {
@@ -35,5 +76,6 @@ $base-sidebar-width: 200px;
   subMenuHover: $base-sub-menu-hover;
   sideBarWidth: $base-sidebar-width;
   logoTitleColor: $base-logo-title-color;
-  logoLightTitleColor: $base-logo-light-title-color
+  logoLightTitleColor: $base-logo-light-title-color;
+  brandPrimary: $brand-primary;
 }

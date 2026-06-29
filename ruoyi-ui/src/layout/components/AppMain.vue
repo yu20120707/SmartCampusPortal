@@ -89,17 +89,17 @@ export default {
   }
 }
 
-/* 移动端fixed-header优化 */
+/* 移动端fixed-header优化（含底部导航留白） */
 @media screen and (max-width: 991px) {
   .fixed-header + .app-main {
-    padding-bottom: max(60px, calc(constant(safe-area-inset-bottom) + 40px));
-    padding-bottom: max(60px, calc(env(safe-area-inset-bottom) + 40px));
+    padding-bottom: max(116px, calc(constant(safe-area-inset-bottom) + 96px));
+    padding-bottom: max(116px, calc(env(safe-area-inset-bottom) + 96px));
     overscroll-behavior-y: none;
   }
 
   .hasTagsView .fixed-header + .app-main {
-    padding-bottom: max(60px, calc(constant(safe-area-inset-bottom) + 40px));
-    padding-bottom: max(60px, calc(env(safe-area-inset-bottom) + 40px));
+    padding-bottom: max(116px, calc(constant(safe-area-inset-bottom) + 96px));
+    padding-bottom: max(116px, calc(env(safe-area-inset-bottom) + 96px));
     overscroll-behavior-y: none;
   }
 }
@@ -107,15 +107,15 @@ export default {
 @supports (-webkit-touch-callout: none) {
   @media screen and (max-width: 991px) {
     .fixed-header + .app-main {
-      padding-bottom: max(17px, calc(constant(safe-area-inset-bottom) + 10px));
-      padding-bottom: max(17px, calc(env(safe-area-inset-bottom) + 10px));
+      padding-bottom: max(73px, calc(constant(safe-area-inset-bottom) + 66px));
+      padding-bottom: max(73px, calc(env(safe-area-inset-bottom) + 66px));
       height: calc(100svh - 50px);
       height: calc(100dvh - 50px);
     }
 
     .hasTagsView .fixed-header + .app-main {
-      padding-bottom: max(17px, calc(constant(safe-area-inset-bottom) + 10px));
-      padding-bottom: max(17px, calc(env(safe-area-inset-bottom) + 10px));
+      padding-bottom: max(73px, calc(constant(safe-area-inset-bottom) + 66px));
+      padding-bottom: max(73px, calc(env(safe-area-inset-bottom) + 66px));
       height: calc(100svh - 84px);
       height: calc(100dvh - 84px);
     }

@@ -61,9 +61,11 @@
 
 <script>
 import { listPendingPaymentItems, listPaymentRecords, demoPayPaymentItem } from '@/api/campus/payment'
+import mobileMixin from '@/mixins/mobile'
 
 export default {
   name: 'CampusPaymentIndex',
+  mixins: [mobileMixin],
   data() {
     return {
       loading: true,
@@ -118,8 +120,13 @@ export default {
 }
 
 .payment-card {
-  border-radius: 6px;
+  border-radius: 8px;
   margin-bottom: 16px;
+  transition: box-shadow .2s ease;
+}
+
+.payment-card:hover {
+  box-shadow: 0 2px 8px rgba(13,124,107,.05);
 }
 
 .summary-card {
@@ -133,10 +140,11 @@ export default {
 
 .summary-value {
   color: #17233d;
-  font-size: 38px;
+  font-size: 40px;
   font-weight: 700;
-  line-height: 1.4;
+  line-height: 1.3;
   margin: 10px 0;
+  letter-spacing: -0.5px;
 }
 
 .summary-meta {
@@ -159,5 +167,12 @@ export default {
 
 .records-card {
   margin-top: 2px;
+}
+
+/* Mobile adaptation */
+@media screen and (max-width: 991px) {
+  .summary-value {
+    font-size: 28px;
+  }
 }
 </style>

@@ -7,7 +7,7 @@
             <span>校园门户</span>
             <el-tag size="mini" type="success">{{ roleLabel }}</el-tag>
           </div>
-          <el-row :gutter="12">
+          <el-row :gutter="12" v-loading="loading" element-loading-text="加载指标…">
             <el-col v-for="card in cards" :key="card.title" :xs="12" :sm="8" :md="6">
               <div class="metric-card">
                 <div class="metric-title">{{ card.title }}</div>
@@ -16,6 +16,9 @@
                   <span>{{ card.unit }}</span>
                 </div>
               </div>
+            </el-col>
+            <el-col v-if="!cards.length && !loading" :span="24">
+              <el-empty description="暂无指标数据" :image-size="80" />
             </el-col>
           </el-row>
         </el-card>
@@ -52,7 +55,7 @@
               <div class="item-meta">{{ item.createTime || '刚刚' }}</div>
             </div>
           </div>
-          <div v-else class="empty-text">暂无公告</div>
+          <el-empty v-else-if="!loading" description="暂无公告通知" :image-size="72" />
         </el-card>
       </el-col>
       <el-col :xs="24" :lg="8">
@@ -67,7 +70,7 @@
               <div class="item-meta">{{ item.createTime || '刚刚' }}</div>
             </div>
           </div>
-          <div v-else class="empty-text">暂无新闻</div>
+          <el-empty v-else-if="!loading" description="暂无校园新闻" :image-size="72" />
         </el-card>
       </el-col>
       <el-col :xs="24" :lg="8">
@@ -87,7 +90,7 @@
               <div class="item-meta">{{ item.type }} · {{ item.subtitle }} · {{ item.time || '待处理' }}</div>
             </div>
           </div>
-          <div v-else class="empty-text">暂无待办</div>
+          <el-empty v-else-if="!loading" description="暂无待办事项" :image-size="72" />
         </el-card>
       </el-col>
     </el-row>
@@ -99,7 +102,7 @@
             <span>最近消费</span>
             <el-tag size="mini" type="info">一卡通</el-tag>
           </div>
-          <el-table v-loading="loading" :data="recentTransactions" size="small">
+          <el-table v-loading="loading" :data="recentTransactions" :size="isMobile ? 'mini' : 'small'">
             <el-table-column prop="sceneName" label="场景" min-width="130" />
             <el-table-column prop="transactionType" label="类型" width="90">
               <template slot-scope="scope">{{ transactionTypeLabel(scope.row.transactionType) }}</template>
@@ -117,7 +120,7 @@
             <span>待缴费</span>
             <el-tag size="mini" type="danger">{{ pendingPayments.length }} 项</el-tag>
           </div>
-          <el-table v-loading="loading" :data="pendingPayments" size="small">
+          <el-table v-loading="loading" :data="pendingPayments" :size="isMobile ? 'mini' : 'small'">
             <el-table-column prop="itemName" label="项目" min-width="150" />
             <el-table-column prop="amount" label="金额" width="100">
               <template slot-scope="scope">￥{{ scope.row.amount }}</template>
@@ -139,7 +142,7 @@
           <div slot="header" class="panel-header">
             <span>近期课表</span>
           </div>
-          <el-table v-loading="loading" :data="todaySchedule" size="small">
+          <el-table v-loading="loading" :data="todaySchedule" :size="isMobile ? 'mini' : 'small'">
             <el-table-column prop="courseName" label="课程" min-width="140" />
             <el-table-column prop="teacherName" label="教师" width="100" />
             <el-table-column prop="weekday" label="星期" width="80">
@@ -157,7 +160,7 @@
           <div slot="header" class="panel-header">
             <span>考试安排</span>
           </div>
-          <el-table v-loading="loading" :data="upcomingExams" size="small">
+          <el-table v-loading="loading" :data="upcomingExams" :size="isMobile ? 'mini' : 'small'">
             <el-table-column prop="courseName" label="课程" min-width="130" />
             <el-table-column prop="examTime" label="时间" width="160" />
             <el-table-column prop="classroom" label="考场" width="110" />
@@ -170,9 +173,11 @@
 
 <script>
 import { getCurrentPortal } from '@/api/campus/portal'
+import mobileMixin from '@/mixins/mobile'
 
 export default {
   name: 'CampusPortal',
+  mixins: [mobileMixin],
   data() {
     return {
       loading: true,
@@ -244,7 +249,12 @@ export default {
 
 .campus-panel {
   margin-bottom: 16px;
-  border-radius: 6px;
+  border-radius: 8px;
+  transition: box-shadow .2s ease;
+}
+
+.campus-panel:hover {
+  box-shadow: 0 2px 8px rgba(13,124,107,.05);
 }
 
 .panel-header {
@@ -259,8 +269,14 @@ export default {
   padding: 16px;
   margin-bottom: 12px;
   border: 1px solid #e8edf5;
-  border-radius: 6px;
+  border-radius: 8px;
   background: #fff;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(13,124,107,.06);
 }
 
 .metric-title {
@@ -303,10 +319,18 @@ export default {
 
 .portal-list-item.clickable {
   cursor: pointer;
+  transition: background .2s ease;
+}
+
+.portal-list-item.clickable:hover {
+  background: #f0faf7;
+  padding-left: 8px;
+  margin-left: -8px;
+  border-radius: 4px;
 }
 
 .portal-list-item.clickable:hover .item-title {
-  color: #168060;
+  color: #0D7C6B;
 }
 
 .item-title {
@@ -322,12 +346,21 @@ export default {
   font-size: 12px;
 }
 
-.empty-text {
-  min-height: 172px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #909399;
-  font-size: 13px;
+/* Mobile adaptation */
+@media screen and (max-width: 991px) {
+  .metric-value {
+    font-size: 22px;
+  }
+
+  .metric-card {
+    min-height: 72px;
+    padding: 12px;
+  }
+
+  .shortcut-button {
+    margin-bottom: 6px;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
 }
 </style>

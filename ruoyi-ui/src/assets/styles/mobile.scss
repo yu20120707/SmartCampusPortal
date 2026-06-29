@@ -1,0 +1,213 @@
+// ============================================
+// SmartCampusPortal - Global Mobile Overrides
+// Breakpoint: 991px (aligns with ResizeHandler.js WIDTH=992)
+// ============================================
+@import './variables.scss';
+
+// =========================================================================
+// DIALOGS — full-width on mobile
+// =========================================================================
+@media screen and (max-width: $mobile-breakpoint) {
+  .el-dialog {
+    width: 92vw !important;
+    max-width: 92vw !important;
+    margin: 10px auto !important;
+
+    .el-dialog__header {
+      padding: 14px 16px 10px;
+    }
+
+    .el-dialog__body {
+      padding: 12px !important;
+      max-height: 65vh;
+      overflow-y: auto;
+    }
+
+    .el-dialog__footer {
+      padding: 10px 16px;
+    }
+  }
+
+  // =========================================================================
+  // FORMS — stacked labels on mobile
+  // =========================================================================
+  .el-form-item {
+    display: block !important;
+
+    .el-form-item__label {
+      width: 100% !important;
+      text-align: left !important;
+      padding-bottom: 4px;
+      line-height: 1.4;
+    }
+
+    .el-form-item__content {
+      margin-left: 0 !important;
+    }
+  }
+
+  // =========================================================================
+  // TABLES — horizontal scroll on mobile
+  // =========================================================================
+  .el-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    .el-table__body-wrapper {
+      overflow-x: auto;
+    }
+  }
+
+  // =========================================================================
+  // DESCRIPTIONS — single column on mobile
+  // =========================================================================
+  .el-descriptions {
+    .el-descriptions__body {
+      .el-descriptions__table {
+        display: block;
+      }
+      .el-descriptions__row {
+        display: block;
+      }
+      .el-descriptions__cell {
+        display: block;
+        padding: 6px 0;
+      }
+    }
+  }
+
+  // =========================================================================
+  // TABS — compact spacing
+  // =========================================================================
+  .el-tabs__nav-scroll {
+    padding: 0 4px;
+  }
+
+  .el-tabs__item {
+    padding: 0 12px !important;
+    font-size: 13px;
+    height: 38px;
+    line-height: 38px;
+  }
+
+  // =========================================================================
+  // PAGINATION — compact
+  // =========================================================================
+  .el-pagination {
+    button,
+    .el-pager li {
+      min-width: 28px;
+      padding: 0 6px;
+      font-size: 12px;
+    }
+
+    .el-pagination__jump,
+    .el-pagination__sizes {
+      display: none;
+    }
+  }
+
+  // =========================================================================
+  // SELECT, INPUT, INPUT-NUMBER — full-width
+  // =========================================================================
+  .el-select {
+    width: 100%;
+  }
+
+  .el-input-number {
+    width: 100% !important;
+
+    .el-input__inner {
+      text-align: left;
+      padding-left: 12px;
+    }
+  }
+
+  // =========================================================================
+  // APP CONTAINER — reduced padding
+  // =========================================================================
+  .app-container {
+    padding: $mobile-page-padding !important;
+  }
+
+  // =========================================================================
+  // CARDS — compact
+  // =========================================================================
+  .el-card__header {
+    padding: 10px 12px 6px !important;
+    font-size: 14px;
+  }
+
+  .el-card__body {
+    padding: 12px !important;
+  }
+
+  // =========================================================================
+  // GRID — reduced gutter
+  // =========================================================================
+  .el-row {
+    margin-left: -6px !important;
+    margin-right: -6px !important;
+
+    .el-col {
+      padding-left: 6px !important;
+      padding-right: 6px !important;
+    }
+  }
+
+  // =========================================================================
+  // FILTER / SEARCH BAR — stacked
+  // =========================================================================
+  .filter-container {
+    display: flex;
+    flex-direction: column;
+
+    .filter-item {
+      width: 100%;
+      margin-bottom: 8px;
+      display: block !important;
+
+      .el-input,
+      .el-select,
+      .el-date-editor {
+        width: 100% !important;
+      }
+    }
+  }
+}
+
+// =========================================================================
+// TOUCH DEVICE OPTIMIZATIONS
+// =========================================================================
+@media (hover: none) and (pointer: coarse) {
+  // Remove hover effects on touch devices
+  .el-button:hover {
+    box-shadow: none !important;
+  }
+
+  // Enlarged touch targets for small table buttons
+  .el-table .el-button--mini {
+    min-width: 36px;
+    min-height: 36px;
+  }
+
+  // iOS-style tap highlight on interactive elements
+  .portal-list-item.clickable,
+  .shortcut-button,
+  .mobile-bottom-nav .nav-tab,
+  .el-table .el-button,
+  .el-card .el-button {
+    -webkit-tap-highlight-color: rgba(13, 124, 107, 0.15);
+    user-select: none;
+  }
+}
+
+// =========================================================================
+// SAFE AREA — iOS notch / home indicator
+// =========================================================================
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .mobile-bottom-nav {
+    padding-bottom: calc(#{$mobile-bottom-nav-height} + env(safe-area-inset-bottom));
+  }
+}

@@ -192,7 +192,10 @@ export default {
 .title {
   margin: 0px auto 30px auto;
   text-align: center;
-  color: #707070;
+  color: #0D7C6B;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 2px;
 }
 
 .login-form {
@@ -222,11 +225,11 @@ export default {
   margin: -8px 0 18px;
   padding: 10px 12px;
   border-radius: 8px;
-  background: #f3faf7;
-  border: 1px solid #d9eee6;
+  background: #f0faf7;
+  border: 1px solid #c8e6dd;
   .demo-title {
     margin-bottom: 8px;
-    color: #2f6f5e;
+    color: #0D7C6B;
     font-size: 13px;
     font-weight: 600;
   }
@@ -243,6 +246,33 @@ export default {
     vertical-align: middle;
   }
 }
+// Mobile adaptation
+@media screen and (max-width: 991px) {
+  .login {
+    padding: 16px;
+    align-items: flex-start;
+    padding-top: 10vh;
+  }
+
+  .login-form {
+    width: 100% !important;
+    max-width: 400px;
+    padding: 20px 16px 5px 16px;
+  }
+
+  .title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .demo-accounts {
+    .el-button {
+      font-size: 12px;
+      padding: 7px 10px;
+    }
+  }
+}
+
 .el-login-footer {
   height: 40px;
   line-height: 40px;

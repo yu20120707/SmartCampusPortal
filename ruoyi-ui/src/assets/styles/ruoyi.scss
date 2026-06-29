@@ -232,6 +232,31 @@
   color: #FFFFFF;
 }
 
+/** 全局交互增强：统一过渡与按压反馈 **/
+.el-button {
+  transition: all .2s ease;
+}
+
+.el-button:active {
+  transform: scale(.98);
+}
+
+.el-button--primary {
+  box-shadow: 0 2px 6px rgba(13,124,107,.15);
+}
+
+.el-button--primary:hover {
+  box-shadow: 0 4px 12px rgba(13,124,107,.22);
+}
+
+/** 全局 focus 可见指示器（无障碍） **/
+.el-button:focus-visible,
+.el-input__inner:focus-visible,
+.el-select .el-input__inner:focus-visible {
+  outline: 2px solid #0D7C6B;
+  outline-offset: 1px;
+}
+
 /** 详细卡片样式 */
 .detail-drawer {
   .el-drawer__header {
@@ -243,7 +268,7 @@
   }
   .section-header {
     font-size: 15px;
-    color: #6379bb;
+    color: #0D7C6B;
     border-bottom: 1px solid #ddd;
     margin: 12px 0 16px 0;
     padding-bottom: 8px;

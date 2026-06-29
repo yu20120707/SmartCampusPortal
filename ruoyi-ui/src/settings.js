@@ -57,10 +57,10 @@ module.exports = {
   /**
    * 是否显示底部版权
    */
-  footerVisible: false,
+  footerVisible: true,
 
   /**
    * 底部版权文本内容
    */
-  footerContent: 'Copyright © 2026 SmartCampusPortal. All Rights Reserved.'
+  footerContent: '© 2026 高校智慧校园门户 · 隐私政策 · 使用条款'
 }

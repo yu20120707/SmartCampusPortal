@@ -22,7 +22,7 @@
       </el-table>
     </el-card>
 
-    <el-dialog title="新增申请" :visible.sync="dialogVisible" width="560px">
+    <el-dialog title="新增申请" :visible.sync="dialogVisible" :fullscreen="isMobile" width="560px">
       <el-form ref="form" :model="form" :rules="rules" label-width="90px">
         <el-form-item label="申请类型" prop="applicationType">
           <el-select v-model="form.applicationType" placeholder="请选择类型" style="width: 100%">
@@ -59,9 +59,11 @@
 
 <script>
 import { listMyApplications, addApplication, getLeaders } from '@/api/campus/office'
+import mobileMixin from '@/mixins/mobile'
 
 export default {
   name: 'CampusOfficeMy',
+  mixins: [mobileMixin],
   data() {
     return {
       loading: true,
@@ -212,7 +214,12 @@ export default {
 }
 
 .campus-panel {
-  border-radius: 6px;
+  border-radius: 8px;
+  transition: box-shadow .2s ease;
+}
+
+.campus-panel:hover {
+  box-shadow: 0 2px 8px rgba(13,124,107,.05);
 }
 
 .panel-header {

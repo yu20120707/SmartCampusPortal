@@ -97,9 +97,11 @@
 
 <script>
 import { getLeaderDashboard } from '@/api/campus/dashboard'
+import mobileMixin from '@/mixins/mobile'
 
 export default {
   name: 'CampusDashboard',
+  mixins: [mobileMixin],
   data() {
     return {
       loading: true,
@@ -161,7 +163,13 @@ export default {
 .metric-card,
 .campus-panel {
   margin-bottom: 16px;
-  border-radius: 6px;
+  border-radius: 8px;
+  transition: box-shadow .2s ease;
+}
+
+.metric-card:hover,
+.campus-panel:hover {
+  box-shadow: 0 2px 8px rgba(13,124,107,.05);
 }
 
 .metric-title {
@@ -184,10 +192,17 @@ export default {
 }
 
 .operation-card {
-  border-left: 3px solid #409eff;
+  border-left: 4px solid #0D7C6B;
 }
 
 .panel-header {
   font-weight: 600;
+}
+
+/* Mobile adaptation */
+@media screen and (max-width: 991px) {
+  .metric-value {
+    font-size: 22px;
+  }
 }
 </style>

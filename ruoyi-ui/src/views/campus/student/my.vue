@@ -5,7 +5,7 @@
         <span>我的学工档案</span>
         <el-tag v-if="profile" size="mini">{{ profile.counselorName }}</el-tag>
       </div>
-      <el-descriptions v-if="profile" :column="3" size="small" border>
+      <el-descriptions v-if="profile" :column="isMobile ? 1 : 3" size="small" border>
         <el-descriptions-item label="姓名">{{ profile.studentName }}</el-descriptions-item>
         <el-descriptions-item label="学号">{{ profile.studentNo }}</el-descriptions-item>
         <el-descriptions-item label="班级">{{ profile.className }}</el-descriptions-item>
@@ -24,7 +24,7 @@
         <span>学工记录</span>
         <el-tag size="mini" type="success">{{ records.length }} 条</el-tag>
       </div>
-      <el-table v-loading="loading" :data="records" size="small">
+      <el-table v-loading="loading" :data="records" :size="isMobile ? 'mini' : 'small'">
         <el-table-column prop="recordDate" label="日期" width="120" />
         <el-table-column prop="recordType" label="类型" width="100">
           <template slot-scope="scope">{{ formatType(scope.row.recordType) }}</template>
@@ -41,9 +41,11 @@
 
 <script>
 import { getMyStudentAffairsProfile, listMyStudentAffairsRecords } from '@/api/campus/student'
+import mobileMixin from '@/mixins/mobile'
 
 export default {
   name: 'CampusStudentMy',
+  mixins: [mobileMixin],
   data() {
     return {
       loading: true,
@@ -89,7 +91,12 @@ export default {
 
 .student-card {
   margin-bottom: 16px;
-  border-radius: 6px;
+  border-radius: 8px;
+  transition: box-shadow .2s ease;
+}
+
+.student-card:hover {
+  box-shadow: 0 2px 8px rgba(13,124,107,.05);
 }
 
 .panel-header {

@@ -239,4 +239,36 @@ export default {
     }
   }
 }
+
+// Mobile adaptation
+@media screen and (max-width: 991px) {
+  .navbar {
+    height: 44px;
+
+    .hamburger-container {
+      line-height: 44px;
+    }
+
+    .breadcrumb-container {
+      display: none;
+    }
+
+    .right-menu {
+      line-height: 44px;
+
+      .right-menu-item {
+        padding: 0 6px;
+        font-size: 16px;
+      }
+
+      .avatar-container .avatar-wrapper {
+        margin-top: 7px;
+
+        .user-nickname {
+          display: none;
+        }
+      }
+    }
+  }
+}
 </style>

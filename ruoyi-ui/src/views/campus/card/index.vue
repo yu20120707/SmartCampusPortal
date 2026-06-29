@@ -21,7 +21,7 @@
             <span>消费 / 充值流水</span>
             <el-button size="mini" icon="el-icon-refresh" @click="loadData">刷新</el-button>
           </div>
-          <el-table v-loading="loading" :data="transactions" size="small">
+          <el-table v-loading="loading" :data="transactions" :size="isMobile ? 'mini' : 'small'">
             <el-table-column prop="transactionTime" label="时间" width="160" />
             <el-table-column prop="sceneName" label="场景" min-width="160" />
             <el-table-column prop="transactionType" label="类型" width="100">
@@ -45,7 +45,7 @@
       </el-col>
     </el-row>
 
-    <el-dialog title="一卡通演示充值" :visible.sync="dialogVisible" width="420px">
+    <el-dialog title="一卡通演示充值" :visible.sync="dialogVisible" :fullscreen="isMobile" width="420px">
       <el-form ref="form" :model="form" :rules="rules" label-width="90px">
         <el-form-item label="充值金额" prop="amount">
           <el-input-number v-model="form.amount" :min="0.01" :max="1000" :precision="2" :step="10" style="width: 100%" />
@@ -62,9 +62,11 @@
 
 <script>
 import { getCardAccount, listCardTransactions, rechargeCard } from '@/api/campus/card'
+import mobileMixin from '@/mixins/mobile'
 
 export default {
   name: 'CampusCardIndex',
+  mixins: [mobileMixin],
   data() {
     return {
       loading: true,
@@ -120,7 +122,12 @@ export default {
 }
 
 .card-panel {
-  border-radius: 6px;
+  border-radius: 8px;
+  transition: box-shadow .2s ease;
+}
+
+.card-panel:hover {
+  box-shadow: 0 2px 8px rgba(13,124,107,.05);
 }
 
 .balance-card {
@@ -134,10 +141,11 @@ export default {
 
 .balance {
   color: #17233d;
-  font-size: 38px;
+  font-size: 40px;
   font-weight: 700;
-  line-height: 1.4;
+  line-height: 1.3;
   margin: 10px 0;
+  letter-spacing: -0.5px;
 }
 
 .meta {
@@ -163,7 +171,7 @@ export default {
 }
 
 .amount-out {
-  color: #f56c6c;
+  color: #e05555;
   font-weight: 600;
 }
 
@@ -171,5 +179,12 @@ export default {
   color: #909399;
   font-size: 12px;
   line-height: 1.6;
+}
+
+/* Mobile adaptation */
+@media screen and (max-width: 991px) {
+  .balance {
+    font-size: 30px;
+  }
 }
 </style>

@@ -6,10 +6,10 @@
     <el-row>
       <el-col :span="12">
         <h1 class="text-jumbo text-ginormous">
-          401错误!
+          需要登录
         </h1>
-        <h2>您没有访问权限！</h2>
-        <h6>对不起，您没有访问权限，请不要进行非法操作！您可以返回主页面</h6>
+        <h2>该页面需要对应权限才能访问</h2>
+        <h6>抱歉，您的当前账号没有访问该页面的权限。请尝试切换账号，或联系管理员确认权限设置。</h6>
         <ul class="list-unstyled">
           <li class="link-type">
             <router-link to="/">
@@ -19,7 +19,7 @@
         </ul>
       </el-col>
       <el-col :span="12">
-        <img :src="errGif" width="313" height="428" alt="Girl has dropped her ice cream.">
+        <img :src="errGif" width="313" height="428" alt="无法访问的示意图">
       </el-col>
     </el-row>
   </div>
@@ -53,7 +53,7 @@ export default {
     max-width: 100%;
     margin: 100px auto;
     .pan-back-btn {
-      background: #008489;
+      background: #0D7C6B;
       color: #fff;
       border: none!important;
     }
@@ -77,11 +77,49 @@ export default {
         padding-bottom: 5px;
       }
       a {
-        color: #008489;
+        color: #0D7C6B;
         text-decoration: none;
         &:hover {
           text-decoration: underline;
         }
+      }
+    }
+  }
+
+  // Mobile adaptation
+  @media screen and (max-width: 991px) {
+    .errPage-container {
+      width: 100%;
+      margin: 40px auto;
+      padding: 0 16px;
+
+      .text-jumbo {
+        font-size: 36px;
+      }
+
+      h2 {
+        font-size: 16px;
+      }
+
+      h6 {
+        font-size: 13px;
+      }
+    }
+
+    .el-row {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .el-col {
+      width: 100% !important;
+      max-width: 100% !important;
+      flex: none !important;
+
+      img {
+        width: 100%;
+        height: auto;
+        margin-top: 24px;
       }
     }
   }

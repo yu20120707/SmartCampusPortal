@@ -4,22 +4,38 @@
 @import './element-ui.scss';
 @import './sidebar.scss';
 @import './btn.scss';
+@import './mobile.scss';
+
+/* 品牌字体：Inter（正文） + Outfit（标题），中文回退 PingFang SC */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap');
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
 
 body {
   height: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  font-family: 'Inter', 'Outfit', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* 标题使用 Outfit 品牌字体 */
+h1, h2, h3, h4, h5, h6,
+.metric-value, .balance, .summary-value {
+  font-family: 'Outfit', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+/* 数字等宽，适合数据展示 */
+.metric-value, .balance, .summary-value, .el-table {
+  font-variant-numeric: tabular-nums;
 }
 
 label {
   font-weight: 700;
-}
-
-html {
-  height: 100%;
-  box-sizing: border-box;
 }
 
 #app {
@@ -38,6 +54,16 @@ html {
 
 .padding-content {
   padding: 4px 0;
+}
+
+/* 标题文本平衡换行 */
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/* 正文最大阅读宽度 */
+p, .summary, .description {
+  max-width: 72ch;
 }
 
 a:focus,
@@ -110,11 +136,11 @@ aside {
   -moz-osx-font-smoothing: grayscale;
 
   a {
-    color: #337ab7;
+    color: #0D7C6B;
     cursor: pointer;
 
     &:hover {
-      color: rgb(32, 160, 255);
+      color: #1A9B85;
     }
   }
 }
@@ -141,7 +167,7 @@ aside {
   text-align: right;
   padding-right: 20px;
   transition: 600ms ease position;
-  background: linear-gradient(90deg, rgba(32, 182, 249, 1) 0%, rgba(32, 182, 249, 1) 0%, rgba(33, 120, 241, 1) 100%, rgba(33, 120, 241, 1) 100%);
+  background: linear-gradient(90deg, #0D7C6B 0%, #0A5C50 0%, #1A9B85 100%, #1A9B85 100%);
 
   .subtitle {
     font-size: 20px;
@@ -159,11 +185,11 @@ aside {
 
 .link-type,
 .link-type:focus {
-  color: #337ab7;
+  color: #0D7C6B;
   cursor: pointer;
 
   &:hover {
-    color: rgb(32, 160, 255);
+    color: #1A9B85;
   }
 }
 

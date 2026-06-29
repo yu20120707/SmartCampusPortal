@@ -262,7 +262,7 @@
     }
 
     .sidebar-container {
-      transition: transform .28s;
+      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
       width: $base-sidebar-width !important;
     }
 
@@ -270,7 +270,7 @@
       .sidebar-container {
         pointer-events: none;
         transition-duration: 0.3s;
-        transform: translate3d(-$base-sidebar-width, 0, 0);
+        transform: translate3d(-100%, 0, 0);
       }
     }
   }

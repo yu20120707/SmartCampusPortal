@@ -14,7 +14,7 @@
         <span>学工档案概览</span>
         <el-tag size="mini">{{ profiles.length }} 名学生</el-tag>
       </div>
-      <el-table v-loading="loading" :data="profiles" size="small">
+      <el-table v-loading="loading" :data="profiles" :size="isMobile ? 'mini' : 'small'">
         <el-table-column prop="studentNo" label="学号" width="110" />
         <el-table-column prop="studentName" label="姓名" width="100" />
         <el-table-column prop="collegeName" label="学院" min-width="140" />
@@ -30,9 +30,11 @@
 
 <script>
 import { getStudentAffairsOverview } from '@/api/campus/student'
+import mobileMixin from '@/mixins/mobile'
 
 export default {
   name: 'CampusStudentOverview',
+  mixins: [mobileMixin],
   data() {
     return {
       loading: true,
@@ -93,5 +95,12 @@ export default {
   align-items: center;
   justify-content: space-between;
   font-weight: 600;
+}
+
+/* Mobile adaptation */
+@media screen and (max-width: 991px) {
+  .metric-value {
+    font-size: 22px;
+  }
 }
 </style>

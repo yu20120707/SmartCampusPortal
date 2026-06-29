@@ -8,6 +8,7 @@
         <tags-view v-if="needTagsView"/>
       </div>
       <app-main/>
+      <mobile-bottom-nav />
       <settings ref="settingRef"/>
     </div>
   </div>
@@ -15,6 +16,7 @@
 
 <script>
 import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components'
+import MobileBottomNav from './components/MobileBottomNav'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
 import variables from '@/assets/styles/variables.scss'
@@ -26,7 +28,8 @@ export default {
     Navbar,
     Settings,
     Sidebar,
-    TagsView
+    TagsView,
+    MobileBottomNav
   },
   mixins: [ResizeMixin],
   computed: {

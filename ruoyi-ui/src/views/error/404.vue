@@ -9,13 +9,13 @@
       </div>
       <div class="bullshit">
         <div class="bullshit__oops">
-          404错误!
+          页面走丢了
         </div>
         <div class="bullshit__headline">
           {{ message }}
         </div>
         <div class="bullshit__info">
-          对不起，您正在寻找的页面不存在。尝试检查URL的错误，然后按浏览器上的刷新按钮或尝试在我们的应用程序中找到其他内容。
+          您要访问的页面不存在，可能已被移动或删除。请检查网址是否正确，或返回首页继续浏览。
         </div>
         <router-link to="/" class="bullshit__return-home">
           返回首页
@@ -31,7 +31,7 @@ export default {
   name: 'Page404',
   computed: {
     message() {
-      return '找不到网页！'
+      return '找不到网页'
     }
   }
 }
@@ -170,7 +170,7 @@ export default {
       font-size: 32px;
       font-weight: bold;
       line-height: 40px;
-      color: #1482f0;
+      color: #0D7C6B;
       opacity: 0;
       margin-bottom: 20px;
       animation-name: slideUp;
@@ -205,7 +205,7 @@ export default {
       float: left;
       width: 110px;
       height: 36px;
-      background: #1482f0;
+      background: #0D7C6B;
       border-radius: 100px;
       text-align: center;
       color: #ffffff;
@@ -226,6 +226,68 @@ export default {
       100% {
         transform: translateY(0);
         opacity: 1;
+      }
+    }
+  }
+}
+
+// Mobile adaptation
+@media screen and (max-width: 991px) {
+  .wscn-http404-container {
+    transform: none;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px 16px;
+  }
+
+  .wscn-http404 {
+    width: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .pic-404 {
+      width: 100%;
+      float: none;
+      max-width: 360px;
+
+      &__parent {
+        width: 100%;
+      }
+
+      &__child {
+        display: none;
+      }
+    }
+
+    .bullshit {
+      width: 100%;
+      float: none;
+      padding: 20px 0;
+      text-align: center;
+
+      &__oops {
+        font-size: 24px;
+        line-height: 32px;
+      }
+
+      &__headline {
+        font-size: 16px;
+        line-height: 20px;
+      }
+
+      &__info {
+        font-size: 13px;
+        line-height: 20px;
+        margin-bottom: 20px;
+      }
+
+      &__return-home {
+        float: none;
+        margin: 0 auto;
       }
     }
   }

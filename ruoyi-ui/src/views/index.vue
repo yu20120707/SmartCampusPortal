@@ -14,8 +14,8 @@
     </section>
 
     <el-row :gutter="16">
-      <el-col v-for="item in roleCards" :key="item.title" :xs="24" :md="8">
-        <el-card shadow="never" class="role-card">
+      <el-col v-for="item in visibleRoleCards" :key="item.title" :xs="24" :md="item.span">
+        <el-card shadow="hover" class="role-card">
           <div class="role-header">
             <i :class="item.icon"></i>
             <span>{{ item.title }}</span>
@@ -29,7 +29,7 @@
     </el-row>
 
     <el-card shadow="never" class="scope-card">
-      <div slot="header" class="section-title">MVP 当前边界</div>
+      <div slot="header" class="section-title">MVP 当前能力边界</div>
       <el-row :gutter="12">
         <el-col v-for="module in modules" :key="module.name" :xs="12" :sm="8" :lg="6">
           <div class="module-item">
@@ -79,6 +79,14 @@ export default {
       ]
     }
   },
+  computed: {
+    visibleRoleCards() {
+      return this.roleCards.map((card, i) => ({
+        ...card,
+        span: i === 2 ? 10 : 7
+      }))
+    }
+  },
   methods: {
     goCampusPortal() {
       this.$router.push('/campus/portal')
@@ -98,11 +106,12 @@ export default {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  margin-bottom: 18px;
-  padding: 28px 32px;
-  border-radius: 8px;
+  margin-bottom: 24px;
+  padding: 32px 36px;
+  border-radius: 10px;
   color: #fff;
-  background: linear-gradient(135deg, #135d66 0%, #1f7a68 54%, #4f8a5f 100%);
+  background: linear-gradient(135deg, #0A5C50 0%, #0D7C6B 54%, #1A9B85 100%);
+  box-shadow: 0 4px 16px rgba(13,124,107,.18);
 }
 
 .eyebrow {
@@ -128,7 +137,13 @@ export default {
 .role-card,
 .scope-card {
   margin-bottom: 16px;
-  border-radius: 6px;
+  border-radius: 8px;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.role-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(13,124,107,.08);
 }
 
 .role-header {
@@ -138,6 +153,11 @@ export default {
   color: #1f2d3d;
   font-size: 16px;
   font-weight: 700;
+}
+
+.role-header i {
+  color: #0D7C6B;
+  font-size: 20px;
 }
 
 .role-card p {
@@ -167,7 +187,7 @@ export default {
   height: 6px;
   margin-right: 6px;
   border-radius: 50%;
-  background: #1f7a68;
+  background: #0D7C6B;
   vertical-align: 1px;
 }
 
@@ -180,13 +200,23 @@ export default {
   padding: 14px;
   margin-bottom: 12px;
   border: 1px solid #e8edf5;
-  border-radius: 6px;
+  border-radius: 8px;
   background: #fff;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.module-item:hover {
+  border-color: #0D7C6B;
+  box-shadow: 0 2px 8px rgba(13,124,107,.06);
 }
 
 .module-item strong,
 .module-item span {
   display: block;
+}
+
+.module-item strong {
+  color: #1f2d3d;
 }
 
 .module-item span {

@@ -5,7 +5,7 @@
         <span>我的教务</span>
         <el-tag v-if="profile" size="mini">{{ profile.className }}</el-tag>
       </div>
-      <el-descriptions v-if="profile" :column="4" size="small" border>
+      <el-descriptions v-if="profile" :column="isMobile ? 1 : 4" :size="isMobile ? 'mini' : 'small'" border>
         <el-descriptions-item label="姓名">{{ profile.studentName }}</el-descriptions-item>
         <el-descriptions-item label="学号">{{ profile.studentNo }}</el-descriptions-item>
         <el-descriptions-item label="学院">{{ profile.collegeName }}</el-descriptions-item>
@@ -16,7 +16,7 @@
     <el-card shadow="never" class="campus-panel">
       <el-tabs v-model="activeTab">
         <el-tab-pane label="课程表" name="schedule">
-          <el-table v-loading="loading" :data="schedule" size="small">
+          <el-table v-loading="loading" :data="schedule" :size="isMobile ? 'mini' : 'small'">
             <el-table-column prop="courseName" label="课程" min-width="150" />
             <el-table-column prop="teacherName" label="教师" width="100" />
             <el-table-column prop="weekday" label="星期" width="80">
@@ -30,7 +30,7 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane label="课程列表" name="courses">
-          <el-table v-loading="loading" :data="courses" size="small">
+          <el-table v-loading="loading" :data="courses" :size="isMobile ? 'mini' : 'small'">
             <el-table-column prop="courseCode" label="课程编码" width="120" />
             <el-table-column prop="courseName" label="课程" min-width="150" />
             <el-table-column prop="teacherName" label="教师" width="100" />
@@ -44,7 +44,7 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane label="选课中心" name="electives">
-          <el-table v-loading="loading" :data="electives" size="small">
+          <el-table v-loading="loading" :data="electives" :size="isMobile ? 'mini' : 'small'">
             <el-table-column prop="courseCode" label="课程编码" width="120" />
             <el-table-column prop="courseName" label="课程" min-width="150" />
             <el-table-column prop="teacherName" label="教师" width="100" />
@@ -64,7 +64,7 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane label="成绩" name="grades">
-          <el-table v-loading="loading" :data="grades" size="small">
+          <el-table v-loading="loading" :data="grades" :size="isMobile ? 'mini' : 'small'">
             <el-table-column prop="courseName" label="课程" min-width="150" />
             <el-table-column prop="termName" label="学期" width="130" />
             <el-table-column prop="credit" label="学分" width="80" />
@@ -74,7 +74,7 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane label="考试" name="exams">
-          <el-table v-loading="loading" :data="exams" size="small">
+          <el-table v-loading="loading" :data="exams" :size="isMobile ? 'mini' : 'small'">
             <el-table-column prop="courseName" label="课程" min-width="150" />
             <el-table-column prop="examTime" label="考试时间" width="160" />
             <el-table-column prop="classroom" label="考场" width="120" />
@@ -89,9 +89,11 @@
 
 <script>
 import { getStudentProfile, listMyCourses, listMySchedule, listMyGrades, listMyExams, listAvailableElectives, enrollElective, dropElective } from '@/api/campus/academic'
+import mobileMixin from '@/mixins/mobile'
 
 export default {
   name: 'CampusAcademicStudent',
+  mixins: [mobileMixin],
   data() {
     return {
       loading: true,

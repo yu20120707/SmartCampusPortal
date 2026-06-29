@@ -644,6 +644,56 @@ $tags-bar-height: 34px;
     }
   }
 }
+
+// Mobile adaptation
+@media screen and (max-width: 991px) {
+  .tags-view-container {
+    height: 32px;
+
+    $tags-bar-height: 32px;
+
+    .tags-nav-btn {
+      width: 22px;
+      font-size: 11px;
+    }
+
+    .tags-action-btn {
+      width: 22px;
+      font-size: 11px;
+    }
+
+    .tags-refresh-btn {
+      width: 48px;
+      font-size: 11px;
+    }
+
+    .tags-view-wrapper .tags-view-item {
+      height: 22px;
+      line-height: 22px;
+      font-size: 11px;
+      padding: 0 6px;
+      margin-left: 3px;
+
+      &:first-of-type { margin-left: 4px; }
+      &:last-of-type  { margin-right: 10px; }
+    }
+  }
+
+  .tags-view-container.tags-view-container--chrome {
+    .tags-view-wrapper .tags-view-item {
+      height: 24px;
+      min-height: 24px;
+      padding: 0 8px;
+      font-size: 11px;
+
+      &.active {
+        height: 28px;
+        min-height: 28px;
+        padding: 0 10px;
+      }
+    }
+  }
+}
 </style>
 
 <style lang="scss">

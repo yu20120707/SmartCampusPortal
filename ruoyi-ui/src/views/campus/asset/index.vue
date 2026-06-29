@@ -39,7 +39,7 @@
       </el-table>
     </el-card>
 
-    <el-dialog title="申请借用资产" :visible.sync="dialogVisible" width="520px">
+    <el-dialog title="申请借用资产" :visible.sync="dialogVisible" :fullscreen="isMobile" width="520px">
       <el-form ref="form" :model="form" :rules="rules" label-width="90px">
         <el-form-item label="资产名称">
           <el-input v-model="currentAssetName" disabled />
@@ -58,9 +58,11 @@
 
 <script>
 import { listAvailableAssets, listMyAssetBorrows, applyAssetBorrow } from '@/api/campus/asset'
+import mobileMixin from '@/mixins/mobile'
 
 export default {
   name: 'CampusAssetIndex',
+  mixins: [mobileMixin],
   data() {
     return {
       loading: true,
@@ -139,8 +141,13 @@ export default {
 }
 
 .asset-card {
-  border-radius: 6px;
+  border-radius: 8px;
   margin-bottom: 16px;
+  transition: box-shadow .2s ease;
+}
+
+.asset-card:hover {
+  box-shadow: 0 2px 8px rgba(13,124,107,.05);
 }
 
 .panel-header {

@@ -20,7 +20,7 @@
       </el-table>
     </el-card>
 
-    <el-dialog :title="reviewTitle" :visible.sync="dialogVisible" width="520px">
+    <el-dialog :title="reviewTitle" :visible.sync="dialogVisible" :fullscreen="isMobile" width="520px">
       <el-form :model="reviewForm" label-width="90px">
         <el-form-item label="审批意见">
           <el-input v-model="reviewForm.reviewComment" type="textarea" :rows="4" maxlength="500" show-word-limit />
@@ -36,9 +36,11 @@
 
 <script>
 import { listTodoAssetBorrows, approveAssetBorrow, rejectAssetBorrow } from '@/api/campus/asset'
+import mobileMixin from '@/mixins/mobile'
 
 export default {
   name: 'CampusAssetTodo',
+  mixins: [mobileMixin],
   data() {
     return {
       loading: true,
