@@ -1,11 +1,8 @@
 package com.ruoyi.common.enums;
 
-import lombok.Getter;
-
 /**
  * @author ccc
  */
-@Getter
 public enum StatusType {
     CAOG("0", "草稿"),
     ING("1", "申请中"),
@@ -18,5 +15,13 @@ public enum StatusType {
     StatusType(String code, String info) {
         this.code = code;
         this.info = info;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getInfo() {
+        return info;
     }
 }

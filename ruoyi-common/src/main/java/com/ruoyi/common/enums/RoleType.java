@@ -1,11 +1,8 @@
 package com.ruoyi.common.enums;
 
-import lombok.Getter;
-
 /**
  * @author ccc
  */
-@Getter
 public enum RoleType {
 
     ADMIN("1", "管理员"),
@@ -22,4 +19,11 @@ public enum RoleType {
         this.info = info;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public String getInfo() {
+        return info;
+    }
 }

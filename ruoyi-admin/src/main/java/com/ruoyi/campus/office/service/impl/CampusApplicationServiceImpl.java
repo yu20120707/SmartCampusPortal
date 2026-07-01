@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.enums.StatusType;
+import com.ruoyi.system.api.SysUserApi;
+import com.ruoyi.system.domain.vo.SysUserVO;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.campus.office.domain.CampusApplication;
@@ -27,6 +30,9 @@ public class CampusApplicationServiceImpl implements ICampusApplicationService
 
     @Autowired
     private CampusApplicationMapper campusApplicationMapper;
+
+    @Resource
+    private SysUserApi sysUserApi;
 
     @Override
     public List<CampusApplication> selectMyApplications(Long userId)
@@ -97,8 +103,8 @@ public class CampusApplicationServiceImpl implements ICampusApplicationService
     }
 
     @Override
-    public List<SysUser> selectLeaders() {
-        return campusApplicationMapper.selectApprovers();
+    public List<SysUserVO> selectLeaders() {
+        return sysUserApi.selectLeaderList();
     }
 
     private int review(Long applicationId, Long approverUserId, String approverName, String reviewComment, boolean approved)
